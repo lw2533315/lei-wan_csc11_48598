@@ -14,20 +14,20 @@ add r0, r0,#1
 cmp r3,r2
 blt ab
 mov r1,r2
-bal end
+b end
 
 
 
 asb:
 mov r0,#0
 mov r1,#102
-bal end
+b end
 
 
 aeb:
 mov r0,#1
 mov r1,#0
-bal end
+b end
 
 end:
 mov r7,#1
