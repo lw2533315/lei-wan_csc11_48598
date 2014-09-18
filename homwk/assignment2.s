@@ -17,7 +17,6 @@ mov r1,r2
 b end
 
 
-
 asb:
 mov r0,#0
 mov r1,#102
@@ -30,5 +29,4 @@ mov r1,#0
 b end
 
 end:
-mov r7,#1
 swi 0
