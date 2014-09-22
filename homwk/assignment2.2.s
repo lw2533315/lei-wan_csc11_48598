@@ -9,7 +9,7 @@
 
 ab:
       subs r2, r2,r3
-	  adds r4 r4, #1
+	  adds r4, r4, #1
 	  cmp r2,r3
 	  blt small
 	  bge ab
