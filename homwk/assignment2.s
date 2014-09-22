@@ -1,4 +1,4 @@
- .global _startf
+ .global _start
 _start:
    mov r2, #102
    mov r3, #7
