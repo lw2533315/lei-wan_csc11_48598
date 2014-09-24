@@ -25,7 +25,7 @@ repeat:
        mul r9, r7, r8
        cmp r1,r9
        bge repeat
-       add r0, r0, r6
+       add r0, r0, r2
        sub r1, r1, r7
        cmp r1, r3
        bge repeat2  
