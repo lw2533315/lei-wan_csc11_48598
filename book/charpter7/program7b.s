@@ -13,7 +13,7 @@ _writ:
 
 mov r7, #4
 mov r0, #1
-mov r2 #19
+mov r2, #19
 ldr r1, =string
 swi 0
 
