@@ -2,10 +2,10 @@
 .global main
 main:
 	/* Initialize */
-	mov r2, #111     /* a=111 */
+	mov r1, #111     /* a=111 */
 	mov r3, #5       /* b=5 */
 	mov r0, #0       /* r0=0 -> counter */
-	mov r1, r2       /* r1=a=111 */
+	
 	mov r4, #0 
         mov r8, #10  
 	
@@ -20,8 +20,8 @@ repeat2:
        cmp r1,r9
        blt small
 repeat:
-       mul r6, r6,r8
-       mul r7, r6, r3
+       mul r2, r6,r8
+       mul r7, r2, r3
        mul r9, r7, r8
        cmp r1,r9
        bge repeat
