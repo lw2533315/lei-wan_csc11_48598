@@ -2,7 +2,7 @@
 .global _start
 _start:
 	/* Initialize */
-	ldr r1,=,#0x00055400   
+	mov r1,255   
 	mov r3, #5       /* b=5 */
 	mov r0, #0       /* r0=0 -> counter */
 	mov r2, #0
