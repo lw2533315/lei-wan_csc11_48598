@@ -1,6 +1,6 @@
 .text
-.global main
-main:
+.global _start
+_start:
 	/* Initialize */
 	mov r1, #111     /* a=111 */
 	mov r3, #5       /* b=5 */
