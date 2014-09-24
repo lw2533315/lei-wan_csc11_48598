@@ -2,7 +2,7 @@
 .global _start
 _start:
 	/* Initialize */
-	mov r1, #1114    
+	mov r1, #333    
 	mov r3, #5       /* b=5 */
 	mov r0, #0       /* r0=0 -> counter */
 	mov r2, #0
