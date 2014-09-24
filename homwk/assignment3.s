@@ -1,6 +1,6 @@
 .text
-.global _start
-_start:
+.global main
+main:
 	/* Initialize */
 	mov r1, #255      @mov the maxium is 255
 	mov r3, #5       /* b=5 */
@@ -51,5 +51,4 @@ swap:
 	mov r0, r1
 	mov r1, r5
 end:
-	mov r7, #1
-	swi 0
+	bx lr
