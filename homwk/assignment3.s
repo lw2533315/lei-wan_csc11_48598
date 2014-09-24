@@ -49,4 +49,5 @@ swap:
 	mov r0, r1
 	mov r1, r5
 end:
-	bx lr
+	mov r7, #1
+	swi 0
