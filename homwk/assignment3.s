@@ -10,9 +10,9 @@ main:
         mov r8, #10  
 	
 	
-	cmp  r1, r3      /* compare and leave if less */
+	cmp  r1, r3    
 	blt  swap
-	/* Now just perform repeated subtractions */
+
 repeat2:
        mov r6,#1
        mul r7,r6,r3
@@ -42,7 +42,7 @@ small:
 
 
 swap:
-	/* Exchange r0 and r1 using r5 with a swap if flag set */
+
 	cmp r4, #0
 	bne end;
 	mov r5, r0
