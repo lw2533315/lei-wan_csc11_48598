@@ -8,7 +8,7 @@ bge bigger
 b end
 
 bigger:
-sub r1, r1, r2
+sub r0, r1, r2
 end:
 mov r7,#1
 swi 0

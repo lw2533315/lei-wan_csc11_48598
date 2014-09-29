@@ -8,14 +8,11 @@ blt small
 
 bigger:
 
-
-
-
-sub r1,r1,r2
+sub r0,r1,r2
 b end
 
 small:
-rsb r1,r1,r2
+rsb r0,r1,r2
 b end
 
 end:
