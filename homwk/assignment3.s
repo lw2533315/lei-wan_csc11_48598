@@ -2,7 +2,7 @@
 .global main
 main:
 	/* Initialize */
-	mov r1, #255      @mov the maxium is 255
+	mov r1, #132      @mov the maxium is 255
 	mov r3, #5       /* b=5 */
 	mov r0, #0       /* r0=0 -> counter */
 	mov r2, #0       @除数的倍数
