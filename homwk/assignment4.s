@@ -1,12 +1,12 @@
 .data
 
-
+.balign
 message1: .asciz"Hey,type a numerator"
-
+.balign
 message2: .asciz"Hey, type a denominator"
-
+.balign
 message3: .asciz"%d is numerator/denominator, %d is numerator%%denominator"
-
+.balign
 pattern: .asciz"%d"
 
 .balign 4
