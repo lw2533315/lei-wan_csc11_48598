@@ -1,11 +1,11 @@
 .data
 
 .balign
-message1: .asciz"Hey,type a numerator"
+message1: .asciz"Hey,type a numerator "
 .balign
-message2: .asciz"Hey, type a denominator"
+message2: .asciz"Hey, type a denominator "
 .balign
-message3: .asciz"%d is numerator/denominator, %d is numerator%%denominator"
+message3: .asciz"numerator/denominator is %d,  numerator%%denominator is %d "
 .balign
 pattern: .asciz"%d"
 
