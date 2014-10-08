@@ -1,4 +1,4 @@
-.date
+.data
 
 
 message1: .asciz"Hey,type a numerator"
@@ -83,7 +83,7 @@ bl scanf
 mov r3,r1
 
 ldr r0, address_message1
-bl prinf
+bl printf
 
 ldr r0, address_pattern
 ldr r1,address_read
@@ -120,7 +120,7 @@ address_return1: .word return1
 address_return2: .word return2
 address_message1: .word message1
 address_message2: .word message2
-address_read1: .word read
+address_read: .word read
 address_message3: .word message3
 
 address_pattern: .word pattern
