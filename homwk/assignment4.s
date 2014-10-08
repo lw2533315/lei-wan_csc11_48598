@@ -10,7 +10,9 @@ message3: .asciz"%d is numerator/denominator, %d is numerator%%denominator"
 pattern: .asciz"%d"
 
 .balign 4
-read: .word 0
+read1: .word 0
+.balign 4
+read2: .word 0
 
 
 .balign 4
@@ -77,19 +79,22 @@ ldr r0,address_message1
 bl printf
 
 ldr r0, address_pattern
-ldr r1, address_read
+ldr r1, address_read1
 bl scanf
 
-mov r3,r1
+
 
 ldr r0, address_message1
 bl printf
 
 ldr r0, address_pattern
-ldr r1,address_read
+ldr r1,address_read2
 bl scanf
 
-mov r0, r3
+ldr r0, address_read1
+ldr r0,[r0]
+ldr r1, address_read2
+ldr r1, [r1]
 bl divide
 
 mov r3,r1
@@ -120,7 +125,8 @@ address_return1: .word return1
 address_return2: .word return2
 address_message1: .word message1
 address_message2: .word message2
-address_read: .word read
+address_read1: .word read1
+address_read2: .word read2
 address_message3: .word message3
 
 address_pattern: .word pattern
