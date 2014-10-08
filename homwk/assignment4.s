@@ -23,8 +23,8 @@ return2: .word 0
 
 divide:
 
- mov r0, #111 
- mov r1, #5 
+ 
+ 
  mov r5, #0 
  mov r4, #2    @times of shift 
  mov r2, #0 
