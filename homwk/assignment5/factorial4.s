@@ -7,7 +7,7 @@
  .text 
    
  factorial: 
-     push {r4, lr}       /* Push r4 and lr onto the stack */ 
+     push {r4,lr}       /* Push r4 and lr onto the stack */ 
      mov r4, r0         /* Keep a copy of the initial value of r0 in r4 */ 
    
      cmp r0, #0         /* compare r0 and 0 */ 
@@ -24,7 +24,7 @@
      mul r0, r1, r0     /* r0 ? r0 * r1 */ 
    
  end: 
-     pop {r4, lr}       /* Pop lr and r4 from the stack */ 
+     pop {r4,lr}       /* Pop lr and r4 from the stack */ 
      bx lr              /* Leave factorial */ 
    
  .globl main 

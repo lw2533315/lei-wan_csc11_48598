@@ -25,11 +25,11 @@
  end: 
      add sp, sp, #+4    /* Discard the r0 we kept in the stack */ 
      ldr lr, [sp], #+4  /* Pop the top of the stack and put it in lr */ 
-     bx lr              /* Leave factorial */ 1   
+     bx lr              /* Leave factorial */ 
  .globl main 
  main: 
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
-     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
+     sub sp, sp, #4               /* Make roomo for one 4 byte integer in the stack */ 
                                   /* In these 4 bytes we will keep the number */ 
                                   /* entered by the user */ 
                                   /* Note that after that the stack is 8-byte aligned */ 
@@ -46,7 +46,8 @@
      bl factorial                 /* Call factorial */ 
    
      mov r2, r0                   /* Get the result of factorial and move it to r2 */ 
-                                  /* So we set it as the third parameter of printf */ 3     ldr r1, [sp]                 /* Load the integer read by scanf into r1 */ 
+                                  /* So we set it as the third parameter of printf */
+   ldr r1, [sp]                 /* Load the integer read by scanf into r1 */ 
                                   /* So we set it as the second parameter of printf */ 
      ldr r0, address_of_message2  /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
