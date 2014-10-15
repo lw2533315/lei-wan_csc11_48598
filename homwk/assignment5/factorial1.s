@@ -20,7 +20,7 @@
                         /* After the call r0 contains factorial(n-1) */ 
                         /* Load r0 (that we kept in th stack) into r1 */ 
      ldr r1, [sp]       /* r1 ? *sp */ 
-     mul r0, r0, r1     /* r0 ? r0 * r1 */ 
+     mul r0, r1, r0     /* r0 ? r0 * r1 */ 
    
  end: 
      add sp, sp, #+4    /* Discard the r0 we kept in the stack */ 
