@@ -316,13 +316,8 @@ cmp r0,#0
 beq firun
 cmp r0,#1
 beq firun1
-cmp r0,#3
-bge firun2
 mov r3,#0
 mov r4,#1
-
-
-
 
 firun2:
 add r2,r3,r4
@@ -343,9 +338,9 @@ add r2,r2,#1
 b fiend
 
 fiend: 
-mov r3,r0
+ldr r1,address_input1
+ldr r1,[r1]
 ldr r0, address_pattern2
-ldr r1,r3
 bl printf
 
 pop {lr}
