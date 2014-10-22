@@ -1,0 +1,180 @@
+.data
+.balign 4
+int1: .asciz"type 1 to choose problem1\ntype 2 to choose problem 2\ntype 3 to choose  problem 3\ntype 4 to exit\n"
+
+.balign 4
+int2: .asciz"which one do you choose?\n"
+
+.balign 4
+int3: .asciz"enter the hours of work\n"
+
+.balign 4
+int4: .asciz"enter the rate of pay\n"
+
+.balign 4
+input1: .word 0
+
+.balign 4
+input3: .word 0
+
+.balign 4
+input2: .word 0
+
+.balign 4
+pattern: .asciz"%d"
+
+.balign 4
+int5: .asciz"over 60 hours is illegal\n"
+
+.balign 4
+int6: .asciz"The gross payment is %d\n"
+.text
+
+payment:
+
+push {lr}
+
+ldr r0, address_int3
+bl printf
+
+ldr r0,address_pattern
+ldr r1,address_input1
+bl scanf
+
+/*ldr r0,address_int6
+ldr r1,address_input1
+ldr r1,[r1]
+bl printf                         @test
+
+*/
+ldr r1,address_input1
+ldr  r3,[r1]
+
+/*ldr r0,address_int6
+mov r1,r3
+bl printf                               @test
+ */
+ldr r0,address_int4
+bl printf
+
+ldr r0,address_pattern
+ldr r1,address_input2
+bl scanf
+
+ldr   r0,address_int6
+ldr r1,address_input2
+ldr r1,[r1]
+bl printf                                   @test
+
+ldr r1,address_input2
+ldr r1,[r1]
+
+mul r5,r3,r1
+ldr r0,address_int6
+mov r1,r5
+bl printf                              @test
+
+cmp r3,#20
+ble run2
+bgt run3
+
+run2:
+mul r5,r3,r1
+
+ldr r0,address_int6
+mov r1,r5
+bl printf                                   @test
+
+b end2 
+run3:
+
+cmp r3,#40
+bgt run4
+sub r3,r3,#20
+mov r10,#20
+mul r6,r1,r10
+mov r11,r1,lsl#1
+mul r7,r3,r11
+add r5,r6,r7
+b end2
+run4:
+cmp r3,#60
+bgt run5
+sub r3,r3,#40
+mov r10,#20
+mul r6,r1,r10
+mov r11,r1,lsl#1
+mul r7,r10,r11
+add r9,r1,r1,lsl#1
+mul r8,r3,r9
+add r6,r6,r7
+add r5,r6,r8
+b end2
+run5:
+ldr r0,address_int5
+bl printf
+
+b end3
+
+end2:
+ldr r0,address_int6
+mov r1,r5
+
+bl printf
+end3:
+
+pop {lr}
+bx lr
+
+
+
+
+
+.global main
+main:
+push {lr}
+
+ldr r0,address_int1
+bl printf
+
+run1:
+ldr r0,address_int2
+bl printf
+
+ldr r0,address_pattern
+ldr r1,address_input1
+bl scanf
+
+ldr r1,address_input1
+ldr r1,[r1]
+cmp r1,#1
+bleq payment
+
+/*cmp r1,#2
+bleq isp_fee
+
+cmp r1,#3
+bleq fibonacci
+*/
+
+cmp r1,#4
+bleq end1
+bne run1
+
+end1:
+pop {lr}
+bx lr
+
+
+address_input3: .word input3
+address_int6: .word int6
+address_int5: .word int5
+address_input2: .word input2
+address_int1: .word int1
+address_int2: .word int2
+address_pattern: .word pattern
+address_input1: .word input1
+address_int3: .word int3
+address_int4: .word int4
+.global printf
+.global scanf
