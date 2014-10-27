@@ -9,10 +9,6 @@ in2: .asciz"enter a divisor "
 .balign 4
 pattern: .asciz"%d"
 
-.balign 4
-store1: .word 0
-.balign 4
-store2: .word 0
 
 .balign 4
 out1: .asciz"the random return %d \n "
@@ -24,7 +20,7 @@ out1: .asciz"the random return %d \n "
 main:
 push {lr}
 
-mov r0,#
+mov r0,#0
 bl time
 bl srand
 bl rand
@@ -103,8 +99,9 @@ address_in1: .word in1
 address_in2: .word in2
 address_pattern: .word pattern
 address_out1: .word out1
-address_out2: .word out2
-address_store1: .word store1
-address_store2: .word store2
 .global printf
 .global scanf
+.global time
+.global srand
+.global rand
+.global abs
