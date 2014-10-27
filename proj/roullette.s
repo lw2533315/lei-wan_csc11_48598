@@ -41,7 +41,7 @@ bl printf
 run1:
 cmp r5,#1
 beq column
-bne run2
+bne run3
 
 column:
 ldr r0, addr_in2
@@ -75,7 +75,7 @@ run5:
 
 
 ldr r0,addr_format
-ldr r1,addr_store1
+ldr r1,addr_store1      @number of your choice
 bl scanf
 
 ldr r3,addr_store1

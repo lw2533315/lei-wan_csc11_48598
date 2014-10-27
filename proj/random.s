@@ -12,7 +12,7 @@ scaleRight:
 	pop {lr}
     bx lr
 .global addsub
-addSub:
+addsub:
 	push {lr}
 	doWhile_r3_ge_1:
 		add r0,r0,r3
@@ -60,8 +60,8 @@ mov r1,r0,asr #1
 	mov r2,#38
 	bl divMod                    /* Call divMod function to get remainder */
 	add r1,#1                   /* Remainder in r1 so add 10 giving between 10 and 99 -> 2 digits */
-    pop {lr}
-    bx lr
+pop {lr}
+bx lr
 
 
 
@@ -69,4 +69,4 @@ mov r1,r0,asr #1
 .global time
 .global srand
 .global rand
-.global abs
+
