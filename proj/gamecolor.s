@@ -133,7 +133,105 @@ bne out1
 beq out2
 
 
-jump
+jump:
+ldr r0,addr_cmp2
+mov r1,r4
+bl strcmp
+bne jump1
+
+cmp r9,#2
+bne run2
+beq out2
+
+run2:
+cmp r9,#4
+bne run3
+beq out2
+
+run3:
+cmp r9,#6
+bne run4
+beq out2
+
+run4:
+cmp r9,#8
+bne run5
+beq out2
+
+run5:
+cmp r9,#10
+bne run6
+beq out2
+
+run6:
+cmp r9,#11
+bne run7
+beq out2
+
+run7:
+cmp r9,#13
+bne run8
+beq out2
+
+run8:
+cmp r9,#15
+bne run9
+beq out2
+
+run9:
+cmp r9,#17
+bne run10
+beq out2
+
+run10:
+cmp r9,#20
+bne run11
+beq out2
+
+run11:
+cmp r9,#22
+bne run12
+beq out2
+
+run12:
+cmp r9,#24
+bne run13
+beq out2
+
+run13:
+cmp r9,#26
+bne run14
+beq out2
+
+run14:
+cmp r9,#28
+bne run15
+beq out2
+
+run15:
+cmp r9,#29
+bne run16
+beq out2
+
+run16:
+cmp  r9,#31
+bne run17
+beq out2
+
+run17:
+cmp r9,#33
+bne run18
+beq out2
+
+run18:
+cmp r9,#35
+bne out1
+beq out2
+
+
+jump2:
+b end                     @other possibility ex: wrong input.
+
 
 
 
@@ -152,6 +250,10 @@ mov r2,r10
 bl printf
 b end
 
+
+end:
+pop {lr}
+bx lr
 
 
 
