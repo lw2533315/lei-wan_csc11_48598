@@ -49,21 +49,37 @@ bne jump2
 beq out1
 
 jump2:
+mov r5,#3                         @judgement signal
 ldr r0,addr_cmp1
 mov r1,r4
 bl strcmp
-bne run1
-
-
-add r9,r9,#1
-cmp r9,#0
+bne run1                          @is not odd
+mov r5,#1
+b compare
 
 
 run1:
+ldr r0,addr_cmp2
+mov r1,r4
+bl strcmp
+bne run2
+mov r5,#2
+b compare
 
+mov r6,#3
+and r9,r9,#1
+cmp r9,#0
+moveq r6,#2
+movne r6,#1
+b compare
 
+run2:
+b end                             @input is not o,or e
 
-
+compare:
+cmp r5,r6
+beq out2
+bne out1
 
 
 
@@ -85,10 +101,13 @@ ldr r0,addr_in4
 mov r1,r4
 mov r2,r10
 bl printf
+
 b end
 
 
-
+end:
+pop {lr}
+bx lr
 
 
 
