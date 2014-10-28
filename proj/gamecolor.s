@@ -1,6 +1,6 @@
 .data
-in1:.asciz"What color do you bet on ?\n"
-in2:.asciz"How much do you bet? r/b\n"
+in1:.asciz"What color do you bet on r/b ?\n"
+in2:.asciz"How much do you bet? \n"
 in3:.asciz"You bet on Color %s, and you loose,your banlance is %d now\n\n"
 in4:.asciz"You bet on Color %s, and you win, your balance is %d now\n\n"
 
@@ -33,14 +33,10 @@ ldr r0, addr_format1
 ldr r1,addr_store2
 bl scanf                             @money
 
-ldr r4,addr_store1
-ldr r4,[r4]
 
-ldr r3,addr_store2
-ldr r3,[r3]
 
 ldr r0,addr_cmp1                    @assume r
-mov r1,r4
+ldr r1,addr_store1
 bl strcmp
 bne jump
 cmp r9,#1
@@ -135,7 +131,7 @@ beq out2
 
 jump:
 ldr r0,addr_cmp2
-mov r1,r4
+ldr r1,addr_store1
 bl strcmp
 bne jump2
 
@@ -236,16 +232,20 @@ b end                     @other possibility ex: wrong input.
 
 
 out1:
+ldr r3,addr_store2
+ldr r3,[r3]
 sub r10,r10,r3                                  @loose
 ldr r0,addr_in3
-mov r1,r4
+ldr r1,addr_store1
 mov r2,r10
 bl printf
 b end
-out2:                              @win
+out2:      
+ldr r3,addr_store2
+ldr r3,[r3]                        @win
 add r10,r10,r3
 ldr r0,addr_in4
-mov r1,r4
+ldr r1,addr_store1
 mov r2,r10
 bl printf
 b end

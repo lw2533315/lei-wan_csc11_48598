@@ -148,11 +148,6 @@ jump:
 ldr r4,addr_store1    @r4 is the column number
 ldr r4,[r4]
 
-ldr r0,addr_format
-mov r1,r4
-bl printf
-
-
 ldr r3,addr_store2
 ldr r3,[r3]
 

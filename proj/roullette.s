@@ -194,6 +194,6 @@ addr_format:.word format
 addr_format1:.word format1
 addr_cmp:.word cmp
 .global printf
-
+.global strcmp
 .global srand
 
