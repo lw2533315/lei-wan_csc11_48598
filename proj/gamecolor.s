@@ -140,90 +140,90 @@ bl strcmp
 bne jump1
 
 cmp r9,#2
-bne run2
+bne run_2
 beq out2
 
-run2:
+run_2:
 cmp r9,#4
-bne run3
+bne run_3
 beq out2
 
-run3:
+run_3:
 cmp r9,#6
-bne run4
+bne run_4
 beq out2
 
-run4:
+run_4:
 cmp r9,#8
-bne run5
+bne run_5
 beq out2
 
-run5:
+run_5:
 cmp r9,#10
-bne run6
+bne run_6
 beq out2
 
-run6:
+run_6:
 cmp r9,#11
-bne run7
+bne run_7
 beq out2
 
-run7:
+run_7:
 cmp r9,#13
-bne run8
+bne run_8
 beq out2
 
-run8:
+run_8:
 cmp r9,#15
-bne run9
+bne run_9
 beq out2
 
-run9:
+run_9:
 cmp r9,#17
-bne run10
+bne run_10
 beq out2
 
-run10:
+run_10:
 cmp r9,#20
-bne run11
+bne run_11
 beq out2
 
-run11:
+run_11:
 cmp r9,#22
-bne run12
+bne run_12
 beq out2
 
-run12:
+run_12:
 cmp r9,#24
-bne run13
+bne run_13
 beq out2
 
-run13:
+run_13:
 cmp r9,#26
-bne run14
+bne run_14
 beq out2
 
-run14:
+run_14:
 cmp r9,#28
-bne run15
+bne run_15
 beq out2
 
-run15:
+run_15:
 cmp r9,#29
-bne run16
+bne run_16
 beq out2
 
-run16:
+run_16:
 cmp  r9,#31
-bne run17
+bne run_17
 beq out2
 
-run17:
+run_17:
 cmp r9,#33
-bne run18
+bne run_18
 beq out2
 
-run18:
+run_18:
 cmp r9,#35
 bne out1
 beq out2
