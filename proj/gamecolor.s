@@ -8,7 +8,7 @@ format1:.asciz"%d"
 format2:.asciz"%s"
 
 cmp1:.asciz"r"
-cmp1:.asciz"b"
+cmp2:.asciz"b"
 
 .balign 4
 store1:.word 0
@@ -137,7 +137,7 @@ jump:
 ldr r0,addr_cmp2
 mov r1,r4
 bl strcmp
-bne jump1
+bne jump2
 
 cmp r9,#2
 bne run_2
