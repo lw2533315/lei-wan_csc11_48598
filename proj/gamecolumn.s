@@ -3,7 +3,7 @@ in1: .asciz"which Column do you bet?1-3\n"
 in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on Column %d, and you loose ,you banlance is  %d now\n\n"
 in4:.asciz"You bet on Column %d, and you win, you banlance is %d  now\n\n"
-in5:.asciz"The ball is on %d \n"
+in5:.asciz"The ball stay on %d \n"
 format:.asciz"%d"
 .balign 4
 store1:.word 0

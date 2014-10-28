@@ -3,7 +3,7 @@ in1:.asciz"What color do you bet on r/b ?\n"
 in2:.asciz"How much do you bet? \n"
 in3:.asciz"You bet on Color %s, and you loose,your banlance is %d now\n\n"
 in4:.asciz"You bet on Color %s, and you win, your balance is %d now\n\n"
-
+in5:.asciz"The ball stay on %d\n"
 format1:.asciz"%d"
 format2:.asciz"%s"
 
@@ -33,6 +33,9 @@ ldr r0, addr_format1
 ldr r1,addr_store2
 bl scanf                             @money
 
+ldr r0,addr_in5
+mov r1,r9
+bl printf
 
 
 ldr r0,addr_cmp1                    @assume r
@@ -262,6 +265,7 @@ addr_in1:.word in1
 addr_in2:.word in2
 addr_in3:.word in3
 addr_in4:.word in4
+addr_in5:.word in5
 addr_format1:.word format1
 addr_format2:.word format2
 addr_cmp1:.word cmp1

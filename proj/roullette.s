@@ -4,8 +4,10 @@ in2:.asciz"type 2 to choose Column\n"
 in3:.asciz"type 3 to choose Single Row\n"
 in4:.asciz"type 4 to choose Red/Black\n"
 in5:.asciz"type 5 to choose Even/Odd\n"
-in6:.asciz"type 6 to start,any other number continue to choose bet method\n"
+in6:.asciz"type 6 to start game!,any other numnber to continue choose\n"
+in9:.asciz"type 7 to exit\n"
 in7:.asciz"Do you wanna try again? (y/n)\n"
+in8:.asciz"\nYour account balance is: %d\n"
 format:.asciz"%d"
 format1:.asciz"%s"
 .balign 4
@@ -14,14 +16,21 @@ store1:.word 0
 store2:.word 0
 .balign 4
 store3:.word 0
+.balign 4
+store4:.word 0       @exit lr value
 cmp:.asciz"n"
 .text
 
 
 .global main
 main:
+push {lr}
 mov r10, #100        @acount balance initiate $100
 more:
+ldr r0,addr_in8
+mov r1,r10
+bl printf
+
 bl random
 mov r9,r1      @recorder the ball
 mov r11,#0    @counter
@@ -31,6 +40,8 @@ mov r6,#1
 mov r7,#1
 mov r8,#1   @judge whether keep on the same method
 game:
+ldr r0,addr_in9
+bl printf
 cmp r4,#1
 beq singlenum
 bne run1             @~~~~~~~~~~~~~
@@ -70,6 +81,7 @@ oe:
 ldr r0, addr_in5
 bl printf
 
+
 run5:
 
 
@@ -79,6 +91,9 @@ bl scanf
 
 ldr r3,addr_store1
 ldr r3,[r3]
+
+cmp r3,#7
+beq final
 push {r3,lr}
 add r11,r11,#1
 cmp r3,#1
@@ -133,9 +148,10 @@ cmp  r1,#6
 beq goto
 bne game
 
+
 goto:
 cmp r11,#0
-blt  end                 @jump out no more bet
+ble  end                 @jump out no more bet
 pop {r3,lr}
 mov r1,r3
 sub r11,r11,#1
@@ -156,7 +172,7 @@ ldr r0,addr_in7
 bl printf
 
 ldr r0,addr_format1
-ldr r0,addr_store3
+ldr r1,addr_store3
 bl scanf
 
 ldr r0, addr_cmp
@@ -187,6 +203,8 @@ addr_in4:.word in4
 addr_in5:.word in5
 addr_in6:.word in6
 addr_in7:.word in7
+addr_in8:.word in8
+addr_in9:.word in9
 addr_store1:.word store1
 addr_store2:.word store2
 addr_store3:.word store3

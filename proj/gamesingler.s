@@ -3,7 +3,7 @@ in1:.asciz"which row do you bet?1-12\n"
 in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on Row %d, and you loose, your banlance is  %d now\n\n"
 in4:.asciz"You bet on Row %d, and you win, your balance is %now\n\n"
-
+in5:.asciz"The ball stay on %d\n"
 .balign 4
 store1:.word 0
 .balign 4
@@ -30,6 +30,10 @@ bl printf
 ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                           @money
+
+ldr r0,addr_in5
+mov r1,r9
+bl printf
 
 ldr r4,addr_store1
 ldr r4,[r4]
@@ -185,6 +189,7 @@ addr_in1:.word in1
 addr_in2:.word in2
 addr_in3:.word in3
 addr_in4:.word in4
+addr_in5:.word in5
 addr_format:.word format
 addr_store1:.word store1
 addr_store2:.word store2
