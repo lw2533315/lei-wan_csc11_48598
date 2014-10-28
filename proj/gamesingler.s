@@ -1,8 +1,8 @@
 .data
 in1:.asciz"which row do you bet?1-12\n"
 in2:.asciz"How much do you bet?\n"
-in3:.asciz"You bet on Row %d, and you loose, your banlance is  %d now\n"
-in4:.asciz"You bet on Row %d, and you win, your balance is %now\n"
+in3:.asciz"You bet on Row %d, and you loose, your banlance is  %d now\n\n"
+in4:.asciz"You bet on Row %d, and you win, your balance is %now\n\n"
 
 .balign 4
 store1:.word 0
@@ -36,8 +36,7 @@ ldr r4,[r4]
 
 ldr r3,addr_store2
 ldr r3,[r3]
-mov r2,#5
-mul r3,r2,r3
+
 
 cmp r4,#1                        @cmp with number of row1
 bne run2
@@ -157,7 +156,9 @@ mov r2,r10
 bl printf
 b end
 
-out2:                                 @bet correct number
+out2:
+mov r2,#5
+mul r3,r2,r3                                 @bet correct number
 add r10,r10,r3
 ldr r0,addr_in4
 mov r1,r4

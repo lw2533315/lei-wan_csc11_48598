@@ -1,8 +1,8 @@
 .data
 in1:.asciz"What color do you bet on ?\n"
 in2:.asciz"How much do you bet? r/b\n"
-in3:.asciz"You bet on Color %s, and you loose,your banlance is %d now\n"
-in4:.asciz"You bet on Color %s, and you win, your balance is %d now\n"
+in3:.asciz"You bet on Color %s, and you loose,your banlance is %d now\n\n"
+in4:.asciz"You bet on Color %s, and you win, your balance is %d now\n\n"
 
 format1:.asciz"%d"
 format2:.asciz"%s"

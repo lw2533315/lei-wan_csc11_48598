@@ -5,17 +5,16 @@ in3:.asciz"type 3 to choose Single Row\n"
 in4:.asciz"type 4 to choose Red/Black\n"
 in5:.asciz"type 5 to choose Even/Odd\n"
 in6:.asciz"type 6 to start,any other number continue to choose bet method\n"
+in7:.asciz"Do you wanna try again? (y/n)\n"
 format:.asciz"%d"
+format1:.asciz"%s"
 .balign 4
 store1:.word 0
 .balign 4
 store2:.word 0
 .balign 4
 store3:.word 0
-.balign 4
-store4:.word 0
-.balign 4
-store5:.word 0
+cmp:.asciz"n"
 .text
 
 
@@ -41,7 +40,7 @@ bl printf
 run1:
 cmp r5,#1
 beq column
-bne run3
+bne run2
 
 column:
 ldr r0, addr_in2
@@ -80,7 +79,7 @@ bl scanf
 
 ldr r3,addr_store1
 ldr r3,[r3]
-push {r3}
+push {r3,lr}
 add r11,r11,#1
 cmp r3,#1
 beq jump1
@@ -137,7 +136,7 @@ bne game
 goto:
 cmp r11,#0
 blt  end                 @jump out no more bet
-pop {r3}
+pop {r3,lr}
 mov r1,r3
 sub r11,r11,#1
 cmp r1,#1
@@ -153,34 +152,22 @@ bleq gameoe
 b goto
 
 end:
+ldr r0,addr_in7
+bl printf
 
+ldr r0,addr_format1
+ldr r0,addr_store3
+bl scanf
 
+ldr r0, addr_cmp
+ldr r1,addr_store3
+bl strcmp
+beq final
+bne more
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+final:
+pop {lr}
+bx lr
 
 
 
@@ -199,12 +186,13 @@ addr_in3:.word in3
 addr_in4:.word in4
 addr_in5:.word in5
 addr_in6:.word in6
+addr_in7:.word in7
 addr_store1:.word store1
 addr_store2:.word store2
 addr_store3:.word store3
-addr_store4:.word store4
-addr_store5:.word store5
 addr_format:.word format
+addr_format1:.word format1
+addr_cmp:.word cmp
 .global printf
 
 .global srand

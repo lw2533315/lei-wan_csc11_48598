@@ -1,8 +1,8 @@
 .data
 in1:.asciz"Do you bet odd/even? input o/e\n"
 in2:.asciz"How much do you bet? r/b\n"
-in3:.asciz"You bet on  %s (odd/even), and you loose,your banlance is %d now\n"
-in4:.asciz"You bet on  %s (odd/even), and you win, your balance is %d now\n"
+in3:.asciz"You bet on  %s (odd/even), and you loose,your banlance is %d now\n\n"
+in4:.asciz"You bet on  %s (odd/even), and you win, your balance is %d now\n\n"
 
 format1:.asciz"%d"
 format2:.asciz"%s"
@@ -16,8 +16,8 @@ store1:.word 0
 store2:.word 0
 
 .text
-.globl gamecolor
-gamecolor:
+.globl gameoe
+gameoe:
 push {lr}
 ldr r0,addr_in1
 bl printf

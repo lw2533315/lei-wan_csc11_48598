@@ -1,8 +1,9 @@
 .data
 in1: .asciz"which Column do you bet?1-3\n"
 in2:.asciz"How much do you bet?\n"
-in3:.asciz"You bet on Column %d, and you loose ,you banlance is  %d now\n"
-in4:.asciz"You bet on Column %d, and you win, you banlance is %d  now\n"
+in3:.asciz"You bet on Column %d, and you loose ,you banlance is  %d now\n\n"
+in4:.asciz"You bet on Column %d, and you win, you banlance is %d  now\n\n"
+in5:.asciz"The ball is on %d \n"
 format:.asciz"%d"
 .balign 4
 store1:.word 0
@@ -12,6 +13,7 @@ store2:.word 0
 .text
 .global gamecolumn
 gamecolumn:
+push {lr}
 ldr r0,addr_in1
 bl printf
 
@@ -27,7 +29,15 @@ ldr r0,addr_format
 ldr r1,addr_store2           @money
 bl scanf
 
-push {lr}
+ldr r0,addr_in5
+mov r1,r9
+bl printf
+
+
+mov r5,#0
+mov r6,#0
+mov r7,#0
+mov r8,#0
 cmp r9,#1
 beq col1
 cmp r9,#4
@@ -52,12 +62,12 @@ cmp r9,#31
 beq col1
 cmp r9,#34
 beq col1
-b part2
+b part2              @ball is not in column 1
 col1:
 mov r5,#1        @ sign the ball stop on column 1
 b jump                @begin cmpare to the bet
 part2:
-mov r5,#0
+
 cmp r9,#2
 beq col2
 cmp r9,#5
@@ -90,7 +100,7 @@ mov r6,#1      @sign the ball stop on column 2
 b jump
 
 part3:
-mov r6,#0
+
 cmp r9,#3
 beq col3
 cmp r9,#6
@@ -121,8 +131,8 @@ col3:
 mov r7,#1
 b jump
 part4:
-mov r7,#0
-mov r8,#0
+
+
 cmp r9,#35
 beq col4
 cmp r9,#36
@@ -138,11 +148,9 @@ ldr r4,[r4]
 
 ldr r3,addr_store2
 ldr r3,[r3]
-mov r2, #2
-mul r3,r2,r3          @bet *rate  
 
 cmp r8,#1
-blt run1
+bne run1
 sub r10,r10,r3
 
 ldr r0, addr_in3
@@ -177,6 +185,8 @@ cmp r4,#2
 bne run3
 cmp r6,#1
 bne out1
+mov r2,#2
+mul r3,r2,r3         @rate*money
 add r10,r10,r3
 ldr r0,addr_in4
 mov r1,r4
@@ -189,6 +199,8 @@ cmp r4,#3
 bne run4
 cmp r7,#1
 bne run4
+mov r2,#2
+mul r3,r2,r3         @rate*money
 add r10,r10,r3
 ldr r0,addr_in4
 mov r1,r4
@@ -210,3 +222,4 @@ addr_in4:.word in4
 addr_format:.word format
 addr_store1:.word store1
 addr_store2:.word store2
+addr_in5:.word in5
