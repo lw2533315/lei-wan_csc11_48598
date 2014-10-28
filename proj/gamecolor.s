@@ -39,7 +39,7 @@ ldr r4,[r4]
 ldr r3,addr_store2
 ldr r3,[r3]
 
-ldr r0,addr cmp1                    @assume r
+ldr r0,addr_cmp1                    @assume r
 mov r1,r4
 bl strcmp
 bne jump
