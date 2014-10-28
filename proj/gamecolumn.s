@@ -29,6 +29,10 @@ ldr r0,addr_format
 ldr r1,addr_store2           @money
 bl scanf
 
+cmp r9,#35
+moveq r9,#0
+cmp r9,#36
+moveq r9,#0
 ldr r0,addr_in5
 mov r1,r9
 bl printf
@@ -62,7 +66,7 @@ cmp r9,#31
 beq col1
 cmp r9,#34
 beq col1
-b part2              @ball is not in column 1
+bne part2              @ball is not in column 1
 col1:
 mov r5,#1        @ sign the ball stop on column 1
 b jump                @begin cmpare to the bet
@@ -92,7 +96,7 @@ cmp r9,#32
 beq col2
 cmp r9,#35
 beq col2
-b part3
+bne part3
 
 
 col2:
@@ -125,19 +129,17 @@ cmp r9,#33
 beq col3
 cmp r9,#36
 beq col3
-b part4
+bne part4
 
 col3:
 mov r7,#1
 b jump
 part4:
-
-
 cmp r9,#35
 beq col4
 cmp r9,#36
 beq col4
-b jump
+bne jump
 col4:
 mov r8,#1
 b jump
@@ -145,6 +147,11 @@ b jump
 jump:
 ldr r4,addr_store1    @r4 is the column number
 ldr r4,[r4]
+
+ldr r0,addr_format
+mov r1,r4
+bl printf
+
 
 ldr r3,addr_store2
 ldr r3,[r3]
@@ -154,7 +161,7 @@ bne run1
 sub r10,r10,r3
 
 ldr r0, addr_in3
-mov r1,r4
+mov r1,r3
 mov r2,r10
 bl printf
 b end
@@ -210,7 +217,7 @@ b end
 
 run4:                    @not satisfy 1-3 condition could complete code
 b end
-endl:
+end:
 pop {lr}
 bx lr
 
