@@ -33,11 +33,14 @@ cmp r9,#35
 moveq r9,#0
 cmp r9,#36
 moveq r9,#0
+
+cmp r11,#0
+bne counter
 ldr r0,addr_in5
 mov r1,r9
 bl printf
 
-
+counter:
 mov r5,#0
 mov r6,#0
 mov r7,#0

@@ -28,10 +28,13 @@ ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                        @bet money on store2
 
+cmp r11,#0
+bne counter
 ldr r0,addr_in5
 mov r1,r9
 bl printf
 
+counter:
 ldr r5,addr_store1
 ldr r5,[r5]
 ldr r2,addr_store2

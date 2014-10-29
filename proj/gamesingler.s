@@ -31,10 +31,13 @@ ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                           @money
 
+cmp r11,#0
+bne counter
 ldr r0,addr_in5
 mov r1,r9
 bl printf
 
+counter:
 ldr r4,addr_store1
 ldr r4,[r4]
 

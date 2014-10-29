@@ -4,10 +4,11 @@ in2:.asciz"type 2 to choose Column\n"
 in3:.asciz"type 3 to choose Single Row\n"
 in4:.asciz"type 4 to choose Red/Black\n"
 in5:.asciz"type 5 to choose Even/Odd\n"
-in6:.asciz"type 6 to start game!,any other numnber to continue choose\n"
-in9:.asciz"type 7 to exit\n"
+in6:.asciz"Do you finish the choice and to start the game? (y/n)\n"
 in7:.asciz"Do you wanna try again? (y/n)\n"
 in8:.asciz"\nYour account balance is: %d\n"
+in9:.asciz"\n Welcome to Roullette Game\n"
+in10:.asciz"type 7 to exit\n"
 format:.asciz"%d"
 format1:.asciz"%s"
 .balign 4
@@ -19,6 +20,7 @@ store3:.word 0
 .balign 4
 store4:.word 0       @exit lr value
 cmp:.asciz"n"
+cmp1:.asciz"y"
 .text
 
 
@@ -27,6 +29,9 @@ main:
 push {lr}
 mov r10, #100        @acount balance initiate $100
 more:
+ldr r0,addr_in9
+bl printf
+
 ldr r0,addr_in8
 mov r1,r10
 bl printf
@@ -40,7 +45,7 @@ mov r6,#1
 mov r7,#1
 mov r8,#1   @judge whether keep on the same method
 game:
-ldr r0,addr_in9
+ldr r0,addr_in10
 bl printf
 cmp r4,#1
 beq singlenum
@@ -138,13 +143,13 @@ ldr r0,addr_in6
 bl printf
 
 
-ldr r0,addr_format
+ldr r0,addr_format1
 ldr r1,addr_store2
 bl scanf
 
 ldr r1,addr_store2
-ldr r1,[r1]
-cmp  r1,#6
+ldr r0,addr_cmp1
+bl strcmp
 beq goto
 bne game
 
@@ -205,12 +210,14 @@ addr_in6:.word in6
 addr_in7:.word in7
 addr_in8:.word in8
 addr_in9:.word in9
+addr_in10:.word in10
 addr_store1:.word store1
 addr_store2:.word store2
 addr_store3:.word store3
 addr_format:.word format
 addr_format1:.word format1
 addr_cmp:.word cmp
+addr_cmp1:.word cmp1
 .global printf
 .global strcmp
 .global srand
