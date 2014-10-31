@@ -28,6 +28,11 @@ ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                        @bet money on store2
 
+cmp r9,#37
+moveq r9,#0
+cmp r9,#38
+moveq r9,#0
+
 cmp r11,#0
 bne counter
 ldr r0,addr_in5
