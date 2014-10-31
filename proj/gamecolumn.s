@@ -29,9 +29,9 @@ ldr r0,addr_format
 ldr r1,addr_store2           @money
 bl scanf
 
-cmp r9,#35
+cmp r9,#37
 moveq r9,#0
-cmp r9,#36
+cmp r9,#38
 moveq r9,#0
 
 cmp r11,#0
@@ -138,10 +138,9 @@ col3:
 mov r7,#1
 b jump
 part4:
-cmp r9,#35
+cmp r9,#0
 beq col4
-cmp r9,#36
-beq col4
+
 bne jump
 col4:
 mov r8,#1
