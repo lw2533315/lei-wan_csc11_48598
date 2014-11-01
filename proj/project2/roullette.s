@@ -147,6 +147,9 @@ ldr r0,addr_format1
 ldr r1,addr_store2
 bl scanf
 
+ldr r12,addr_save               @ldr save first address
+mov r8,#0
+                   @initialize r8=0 to counter the address
 ldr r1,addr_store2
 ldr r0,addr_cmp1
 bl strcmp
@@ -161,7 +164,20 @@ pop {r3,lr}
 mov r1,r3
 sub r11,r11,#1
 cmp r1,#1
+blne save1
 bleq gamesinglenum
+add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
+add r8,r8,#1                    @ counter +1  
+str r5,[r7]                     @  [r5] store in r7address
+add r7,r12,r8,lsl#2             @  point move 4*r8 to new r7
+add r8,r8,#1                   @counter +1
+str r3,[r7]                   @ [r3] store in r7 new address
+add r7,r12,r8,lsl#2
+add r8,r8,#1
+str r4,[r7]
+
+save1:
+
 cmp r1,#2
 bleq gamecolumn
 cmp r1,#3
@@ -218,6 +234,7 @@ addr_format:.word format
 addr_format1:.word format1
 addr_cmp:.word cmp
 addr_cmp1:.word cmp1
+addr_save:.word save
 .global printf
 .global strcmp
 .global srand

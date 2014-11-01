@@ -3,8 +3,7 @@ in1: .asciz"Which number 1-36  do you bet?\n"
 in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on %d, and you win, you banlance is %d\n\n"
 in4:.asciz"You bet on %d, and you loose, you banlance is %d now\n\n"
-in5:.asciz"The ball is stay on %d\n"
-format: .asciz"%d"
+
 .balign 4
 store1: .word 0
 .balign 4
@@ -33,40 +32,17 @@ moveq r9,#0
 cmp r9,#38
 moveq r9,#0
 
-cmp r11,#0
-bne counter
-ldr r0,addr_in5
-mov r1,r9
-bl printf
+ldr r3,addr_store1      @bet what number store r3
+ldr r3,[r4]
+cmp r9,r4
+moveq r5,#1             @win r5 is 1 loose r5 is 0
+movne r5,#0
 
-counter:
-ldr r5,addr_store1
-ldr r5,[r5]
-ldr r2,addr_store2
-ldr r2,[r2]
-mov r3,#35
-mul r2,r3,r2
-cmp r5,r9
-bne run1
-add r10,r10,r2
-ldr r0,addr_in3
-mov r1,r5
-mov r2,r10
-bl printf
+ldr r4,addr_store2       @bet how much
+ldr r4,[r3]
 
-b end
-run1:
-ldr r2,addr_store2
-ldr r2,[r2]
-sub r10,r10,r2
-ldr r0,addr_in4
-mov r1,r5
-mov r2,r10
-bl printf
-end:
 pop {lr}
 bx lr
-
 
 
 
