@@ -3,12 +3,11 @@ in1:.asciz"Do you bet odd/even? input o/e\n"
 in2:.asciz"How much do you bet? \n"
 in3:.asciz"You bet on  %s (odd/even), and you loose,your banlance is %d now\n\n"
 in4:.asciz"You bet on  %s (odd/even), and you win, your balance is %d now\n\n"
-in5:.asciz"The ball is on %d\n"
+
 format1:.asciz"%d"
 format2:.asciz"%s"
 
 cmp1:.asciz"o"
-cmp2:.asciz"e"
 
 .balign 4
 store1:.word 0
@@ -36,13 +35,6 @@ ldr r1,addr_store2
 bl scanf                                   @money
 
 
-cmp r11,#0
-bne counter
-ldr r0,addr_in5
-mov r1,r9
-bl printf
-
-counter:
 cmp r9,#37
 bne  jump1
 beq out1
@@ -62,21 +54,12 @@ mov r5,#1
 b compare
 
 run1:
-ldr r0,addr_cmp2
-ldr r1,addr_store1
-bl strcmp
-bne run2
 mov r5,#2
 b compare
-
-
-run2:
-b end                             @input is not o,or e
+                             @input is not o,or e
 
 compare:
 
-ldr r3,addr_store2
-ldr r3,[r3]
 mov r6,#3
 and r9,r9,#1
 cmp r9,#0
@@ -88,18 +71,18 @@ bne out1
 
 
 out1:
-sub r10,r10,r3                                  @loose
-ldr r0,addr_in3
-ldr r1,addr_store1
-mov r2,r10
-bl printf
+mov r5,#0
+ldr r3,addr_store1
+ldr r3,[r3]
+ldr r4,addr_store2
+ldr r4,[r4]
 b end
 out2:                              @win
-add r10,r10,r3
-ldr r0,addr_in4
-ldr r1,addr_store1
-mov r2,r10
-bl printf
+mov r5,#1
+ldr r3,addr_store1
+ldr r3,[r3]
+ldr r4,addr_store2
+ldr r4,[r4]
 b end
 
 
@@ -116,10 +99,8 @@ addr_in1:.word in1
 addr_in2:.word in2
 addr_in3:.word in3
 addr_in4:.word in4
-addr_in5:.word in5
 addr_format1:.word format1
 addr_format2:.word format2
 addr_cmp1:.word cmp1
-addr_cmp2:.word cmp2
 addr_store1:.word store1
 addr_store2:.word store2

@@ -3,7 +3,7 @@ in1: .asciz"which Column do you bet?1-3\n"
 in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on Column %d, and you loose ,you banlance is  %d now\n\n"
 in4:.asciz"You bet on Column %d, and you win, you banlance is %d  now\n\n"
-in5:.asciz"The ball stay on %d \n"
+
 format:.asciz"%d"
 .balign 4
 store1:.word 0
@@ -34,14 +34,7 @@ moveq r9,#0
 cmp r9,#38
 moveq r9,#0
 
-cmp r11,#0
-bne counter
-ldr r0,addr_in5
-mov r1,r9
-bl printf
-
-counter:
-mov r5,#0
+mov r2,#0
 mov r6,#0
 mov r7,#0
 mov r8,#0
@@ -71,7 +64,7 @@ cmp r9,#34
 beq col1
 bne part2              @ball is not in column 1
 col1:
-mov r5,#1        @ sign the ball stop on column 1
+mov r2,#1        @ sign the ball stop on column 1
 b jump                @begin cmpare to the bet
 part2:
 
@@ -147,73 +140,45 @@ mov r8,#1
 b jump
 
 jump:
-ldr r4,addr_store1    @r4 is the column number
-ldr r4,[r4]
-
-ldr r3,addr_store2
+ldr r3,addr_store1    @r3 is the column number
 ldr r3,[r3]
 
-cmp r8,#1
-bne run1
-sub r10,r10,r3
+ldr r4,addr_store2     @r4 is the money
+ldr r4,[r4]
 
-ldr r0, addr_in3
-mov r1,r3
-mov r2,r10
-bl printf
-b end
+cmp r8,#1
+moveq r5,#0               @r5==#0 loose
+beq end
 
 
 run1:
-cmp r4,#1
+cmp r3,#1
 bne run2
-cmp r5,#1
-bne out1
-add r10,r10,r3
-ldr r0,addr_in4
-mov r1,r4
-mov r2,r10
-bl printf
+cmp r2,#1
+movne r5,#0
+bne end
+moveq r5,#1          @win 
 b end
 
-out1:
-sub r10,r10,r3
-ldr r0,addr_in3
-mov r1,r4
-mov r2,r10
-bl printf
-b end
 
 run2:
-cmp r4,#2
+cmp r3,#2
 bne run3
 cmp r6,#1
-bne out1
-mov r2,#2
-mul r3,r2,r3         @rate*money
-add r10,r10,r3
-ldr r0,addr_in4
-mov r1,r4
-mov r2,r10
-bl printf
+movne r5,#0
+bne end
+moveq r5,#1
 b end
 
 run3:
-cmp r4,#3
-bne run4
+cmp r3,#3
 cmp r7,#1
-bne run4
-mov r2,#2
-mul r3,r2,r3         @rate*money
-add r10,r10,r3
-ldr r0,addr_in4
-mov r1,r4
-mov r2,r10
-bl printf
+movne r5,#1
+bne end
+moveq r5,#1
 b end
 
-run4:                    @not satisfy 1-3 condition could complete code
-b end
+
 end:
 pop {lr}
 bx lr
@@ -226,4 +191,4 @@ addr_in4:.word in4
 addr_format:.word format
 addr_store1:.word store1
 addr_store2:.word store2
-addr_in5:.word in5
+

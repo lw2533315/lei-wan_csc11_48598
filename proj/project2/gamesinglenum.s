@@ -33,13 +33,13 @@ cmp r9,#38
 moveq r9,#0
 
 ldr r3,addr_store1      @bet what number store r3
-ldr r3,[r4]
-cmp r9,r4
+ldr r3,[r3]
+cmp r9,r3
 moveq r5,#1             @win r5 is 1 loose r5 is 0
 movne r5,#0
 
 ldr r4,addr_store2       @bet how much
-ldr r4,[r3]
+ldr r4,[r4]
 
 pop {lr}
 bx lr
