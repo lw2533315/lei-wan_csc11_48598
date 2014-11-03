@@ -3,18 +3,17 @@ data
 message: .asciz "Type a number: "
 scan_format : .asciz "%d"
 message2: .asciz "Length of the Hailstone sequence for %d is %d\n"
- 
+ m3:.asciz"After loop, it take %d sec\n"
 .text
  
 collatz:
-    /* r0 contains the first argument */
-    /* Only r0, r1 and r2 are modified,
-       so we do not need to keep anything
-       in the stack */
-    /* Since we do not do any call, we do
-       not have to keep lr either */
-    mov r1, r0                 /* r1 ? r0 */
-    mov r0, #0                 /* r0 ? 0 */
+
+    
+    mov r1, r0
+    mov r4,#0
+    mov r0, #0
+    bl time
+    mov r5,r0
   collatz_loop:
     cmp r1, #1                 /* compare r1 and 1 */
     beq collatz_end            /* if r1 == 1 branch to collatz_end */
@@ -23,10 +22,17 @@ collatz:
     moveq r1, r1, ASR #1       /* if r2 == 0, r1 ? r1 >> 1. This is r1 ? r1/2 */
     addne r1, r1, r1, LSL #1   /* if r2 != 0, r1 ? r1 + (r1 << 1). This is r1 ? 3*r1 */
     addne r1, r1, #1           /* if r2 != 0, r1 ? r1 + 1. */
-            /* r1 ? r1 + 1. */
+            
   collatz_end_loop:
-    add r0, r0, #1             /* r0 ? r0 + 1 */
-    b collatz_loop             /* branch back to collatz_loop */
+    add r4, r4, #1             /* r0 ? r0 + 1 */
+    b collatz_loop 
+    mov r0,#0
+    bl time
+    mov r6,r0
+    sub r6,r6,r5
+    ldr r0,ad_m3
+    mov r1,r6
+    bl printf
   collatz_end:
     bx lr
  
@@ -64,3 +70,4 @@ main:
 address_of_message: .word message
 address_of_scan_format: .word scan_format
 address_of_message2: .word message2
+ad_m3:.word m3
