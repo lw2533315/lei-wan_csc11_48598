@@ -1,12 +1,12 @@
 .data
-m1:.asciz"time without predication: %d/n"
+m1:.asciz"time without predication: %d\n"
 m2:.asciz"time with predication: %d\n"
-
+.text
 collatz:
     /* r0 contains the first argument */
-    push {r4}
+    push {lr}
     sub sp, sp, #4  /* Make sure the stack is 8 byte aligned */
-    mov r4, r0
+    mov r4, #222
     mov r3, #4194304
     
    mov r0,#0
@@ -45,21 +45,21 @@ bl printf
 
 
     add sp, sp, #4  /* Make sure the stack is 8 byte aligned */
-    pop {r4}
+    pop {lr}
     bx lr
 
 
    collatz2:
     /* r0 contains the first argument */
-    push {r4}
+    push {lr}
     sub sp, sp, #4  /* Make sure the stack is 8 byte aligned */
-    mov r4, r0
+    mov r4, #222
     mov r3, #4194304
 
     mov r0,#0
 bl time
-r5,r0
-  collatz_repeat:
+mov r5,r0
+  collatz_repeat2:
     mov r1, r4                 /* r1 ¡û r0 */
     mov r0, #0                 /* r0 ¡û 0 */
   collatz2_loop:
@@ -76,7 +76,7 @@ r5,r0
   collatz2_end:
     sub r3, r3, #1
     cmp r3, #0
-    bne collatz_repeat
+    bne collatz_repeat2
 
 mov r0,#0
 bl time
@@ -86,7 +86,7 @@ ldr r0,ad_m2
 mov r1,r6
 bl printf
     add sp, sp, #4             /* Restore the stack */
-    pop {r4}
+    pop {lr}
     bx lr
 
 

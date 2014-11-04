@@ -48,7 +48,7 @@ game2:     @Column
 cmp r1,#2
 bne game3
 cmp r5,#0
-beq lose1
+beq lose2
 ldr r0,addr_in1
 bl printf
 ldr r0,addr_in5
@@ -63,7 +63,7 @@ mov r1,r10
 bl printf
 b end
 
-lose1:
+lose2:
 ldr r0,addr_in2
 bl printf
 ldr r0, addr_in5
@@ -85,7 +85,7 @@ game3:      @singlerow
 cmp r1,#3
 bne game4
 cmp r5,#0
-beq lose1
+beq lose3
 ldr r0,addr_in1
 bl printf
 ldr r0,addr_in6
@@ -100,7 +100,7 @@ mov r1,r10
 bl printf
 b end
 
-lose1:
+lose3:
 ldr r0,addr_in2
 bl printf
 ldr r0, addr_in6
@@ -119,7 +119,7 @@ game4:                          @color
 cmp r1,#4
 bne game5
 cmp r5,#0
-beq lose1
+beq lose4
 ldr r0,addr_in1
 bl printf
 ldr r0,addr_in7
@@ -134,7 +134,7 @@ mov r1,r10
 bl printf
 b end
 
-lose1:
+lose4:
 ldr r0,addr_in2
 bl printf
 ldr r0, addr_in7
@@ -154,7 +154,7 @@ b end
 
 game5:                      @even or odd
 cmp r5,#0
-beq lose1
+beq lose5
 ldr r0,addr_in1
 bl printf
 ldr r0,addr_in8
@@ -169,7 +169,7 @@ mov r1,r10
 bl printf
 b end
 
-lose1:
+lose5:
 ldr r0,addr_in2
 bl printf
 ldr r0, addr_in8

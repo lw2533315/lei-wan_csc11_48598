@@ -19,6 +19,11 @@ store2:.word 0
 store3:.word 0
 .balign 4
 store4:.word 0       @exit lr value
+.balign 4
+a:.skip 400
+
+.balign 4
+store5:.word 0
 cmp:.asciz"n"
 cmp1:.asciz"y"
 .text
@@ -37,13 +42,15 @@ mov r1,r10
 bl printf
 
 bl random
-mov r9,r1      @recorder the ball
+
+ldr  r9,addr_store4
+str r1,[r9]
 mov r11,#0    @counter
 mov r4,#1
 mov r5,#1
 mov r6,#1
 mov r7,#1
-mov r8,#1   @judge whether keep on the same method
+mov r9,#1   @judge whether keep on the same method
 game:
 ldr r0,addr_in10
 bl printf
@@ -79,7 +86,7 @@ ldr r0,addr_in4
 bl printf
 
 run4:
-cmp r8,#1
+cmp r9,#1
 beq oe
 bne run5
 oe:
@@ -135,7 +142,7 @@ beq jump9
 bne jump10
 
 jump9:
-mov r8,#0
+mov r9,#0
 
 jump10:
 
@@ -147,7 +154,7 @@ ldr r0,addr_format1
 ldr r1,addr_store2
 bl scanf
 
-ldr r12,addr_save               @ldr save first address
+ldr r12,addr_a               @ldr save first address
 mov r8,#0
                    @initialize r8=0 to counter the address
 ldr r1,addr_store2
@@ -159,17 +166,18 @@ bne game
 
 goto:
 cmp r11,#0
-mov r6,r11                 @record r11 to r6
-ble  output                 @jump out no more bet
+
+ble final                      @jump out no more bet
 pop {r3,lr}
 mov r1,r3
 sub r11,r11,#1
 cmp r1,#1
 bne save1
 bleq gamesinglenum
-add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
+
+add r7,r12,r8,lsl#2           @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
-str r5,[r7]                     @  [r5] store in r7address
+str r5,[r7]                  @  [r5] store in r7address
 add r7,r12,r8,lsl#2             @  point move 4*r8 to new r7
 add r8,r8,#1                   @counter +1
 str r3,[r7]                   @ [r3] store in r7 new address
@@ -251,8 +259,10 @@ add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r1,[r7]
 b goto
-
+/*
 output:
+ldr r9, addr_store4
+ldr r9,[r9]
 mov  r12,r7                      @present addrss
 cmp r11,r8
 beq end  
@@ -276,8 +286,7 @@ add r11,r11,#1                  @str a set of data from memory
 bl print
 b output
 
-
-
+*/
 
 end:
 ldr r0,addr_in7
@@ -321,11 +330,12 @@ addr_in10:.word in10
 addr_store1:.word store1
 addr_store2:.word store2
 addr_store3:.word store3
+addr_store4:.word store4
 addr_format:.word format
 addr_format1:.word format1
 addr_cmp:.word cmp
 addr_cmp1:.word cmp1
-addr_save:.word save
+addr_a:.word a
 .global printf
 .global strcmp
 .global srand
