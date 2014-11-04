@@ -1,4 +1,4 @@
-data
+.data
  
 message: .asciz "Type a number: "
 scan_format : .asciz "%d"
@@ -71,3 +71,6 @@ address_of_message: .word message
 address_of_scan_format: .word scan_format
 address_of_message2: .word message2
 ad_m3:.word m3
+.global time
+.global printf
+.global scanf
