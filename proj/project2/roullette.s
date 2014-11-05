@@ -4,8 +4,8 @@ in2:.asciz"type 2 to choose Column\n"
 in3:.asciz"type 3 to choose Single Row\n"
 in4:.asciz"type 4 to choose Red/Black\n"
 in5:.asciz"type 5 to choose Even/Odd\n"
-in6:.asciz"Do you finish the choice and to start the game? (y/n)\n"
-in7:.asciz"Do you wanna try again? (y/n)\n"
+in6:.asciz"\nDo you finish the choice and to start the game? (y/n)\n"
+in7:.asciz"\nDo you wanna try again? (y/n)\n"
 in8:.asciz"\nYour account balance is: %d\n"
 in9:.asciz"\n Welcome to Roullette Game\n"
 in10:.asciz"type 7 to exit\n"
@@ -154,7 +154,7 @@ ldr r0,addr_format1
 ldr r1,addr_store2
 bl scanf
 
-ldr r12,addr_a               @ldr save first address
+
 mov r8,#0
                    @initialize r8=0 to counter the address
 ldr r1,addr_store2
@@ -167,14 +167,14 @@ bne game
 goto:
 cmp r11,#0
 
-ble final                      @jump out no more bet
+ble output                      @jump out no more bet
 pop {r3,lr}
 mov r1,r3
 sub r11,r11,#1
 cmp r1,#1
 bne save1
 bleq gamesinglenum
-
+ldr r12,addr_a
 add r7,r12,r8,lsl#2           @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                  @  [r5] store in r7address
@@ -193,6 +193,7 @@ save1:
 cmp r1,#2
 bne save2
 bleq gamecolumn
+ldr r12,addr_a
 add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                     @  [r5] store in r7address
@@ -211,6 +212,7 @@ save2:
 cmp r1,#3
 bne save3
 bleq gamesingler
+ldr r12,addr_a
 add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                     @  [r5] store in r7address
@@ -229,6 +231,7 @@ save3:
 cmp r1,#4
 bne save4
 bleq gamecolor
+ldr r12,addr_a
 add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                     @  [r5] store in r7address
@@ -244,7 +247,9 @@ add r8,r8,#1
 str r1,[r7]
 save4:
 cmp r1,#5
+bne goto
 bleq gameoe
+ldr r12,addr_a
 add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                     @  [r5] store in r7address
@@ -259,11 +264,22 @@ add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r1,[r7]
 b goto
-/*
+
 output:
 ldr r9, addr_store4
 ldr r9,[r9]
-mov  r12,r7                      @present addrss
+
+
+ldr r0,addr_format
+mov r1,r8
+bl printf                            @
+
+ldr r0,addr_format
+mov r1,r7
+bl printf                       @
+
+
+mov  r12,r7/*                      @present addrss
 cmp r11,r8
 beq end  
 sub r7,r12,r11,lsl#2
@@ -284,9 +300,9 @@ ldr r5,[r7]
 add r11,r11,#1                  @str a set of data from memory
 
 bl print
-b output
+b output*/
 
-*/
+
 
 end:
 ldr r0,addr_in7
