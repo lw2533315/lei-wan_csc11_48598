@@ -9,7 +9,8 @@ format:.asciz"%d"
 store1:.word 0
 .balign 4
 store2:.word 0
-
+.balign 4
+save:.word 0
 .text
 .global gamecolumn
 gamecolumn:
@@ -34,6 +35,7 @@ moveq r9,#0
 cmp r9,#38
 moveq r9,#0
 
+mov r12,r8
 mov r2,#0
 mov r6,#0
 mov r7,#0
@@ -180,6 +182,7 @@ b end
 
 
 end:
+mov r8,r12
 pop {lr}
 bx lr
 

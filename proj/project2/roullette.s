@@ -189,7 +189,7 @@ mov r9,#1                     @sigal 1. singlenum
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r9,[r7]
-save1:
+
 
 save1:
 cmp r1,#2
