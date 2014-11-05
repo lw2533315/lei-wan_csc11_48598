@@ -165,8 +165,9 @@ bne game
 
 
 goto:
+ldr r9,addr_store4
+ldr r9,[r9]
 cmp r11,#0
-
 ble output                      @jump out no more bet
 pop {r3,lr}
 mov r1,r3
@@ -184,10 +185,10 @@ str r3,[r7]                   @ [r3] store in r7 new address
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r4,[r7]
-mov r1,#1                     @sigal 1. singlenum
+mov r9,#1                     @sigal 1. singlenum
 add r7,r12,r8,lsl#2
 add r8,r8,#1
-str r1,[r7]
+str r9,[r7]
 save1:
 
 cmp r1,#2
@@ -203,10 +204,10 @@ str r3,[r7]                   @ [r3] store in r7 new address
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r4,[r7]
-mov r1,#2
+mov r9,#2
 add r7,r12,r8,lsl#2
 add r8,r8,#1
-str r1,[r7]
+str r9,[r7]
 
 save2:
 cmp r1,#3
@@ -222,10 +223,10 @@ str r3,[r7]                   @ [r3] store in r7 new address
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r4,[r7]
-mov r1,#3
+mov r9,#3
 add r7,r12,r8,lsl#2
 add r8,r8,#1
-str r1,[r7]
+str r9,[r7]
 
 save3:
 cmp r1,#4
@@ -241,10 +242,10 @@ str r3,[r7]                   @ [r3] store in r7 new address
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r4,[r7]
-mov r1,#4
+mov r9,#4
 add r7,r12,r8,lsl#2
 add r8,r8,#1
-str r1,[r7]
+str r9,[r7]
 save4:
 cmp r1,#5
 bne goto
@@ -259,17 +260,17 @@ str r3,[r7]                   @ [r3] store in r7 new address
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r4,[r7]
-mov r1,#5
+mov r9,#5
 add r7,r12,r8,lsl#2
 add r8,r8,#1
-str r1,[r7]
+str r9,[r7]
 b goto
 
 output:
-ldr r9, addr_store4
-ldr r9,[r9]
 
-
+ldr r0,addr_format
+mov r1,r9
+bl printf
 ldr r0,addr_format
 mov r1,r8
 bl printf                            @
