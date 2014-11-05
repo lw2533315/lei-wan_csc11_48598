@@ -191,6 +191,7 @@ add r8,r8,#1
 str r9,[r7]
 save1:
 
+save1:
 cmp r1,#2
 bne save2
 bleq gamecolumn
@@ -208,6 +209,7 @@ mov r9,#2
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r9,[r7]
+
 
 save2:
 cmp r1,#3
