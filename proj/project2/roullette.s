@@ -170,15 +170,15 @@ bne game
 goto:
 ldr r9,addr_store4
 ldr r9,[r9]
+
 cmp r11,#0
 ble output                      @jump out no more bet
 pop {r3,lr}
 mov r1,r3
 
-ldr r0, ad_testd
-bl printf
 
 sub r11,r11,#1
+
 cmp r1,#1
 bne save1
 bleq gamesinglenum
@@ -222,7 +222,7 @@ save2:
 cmp r1,#3
 bne save3
 bleq gamesingler
-ldr r12,addr_a
+ldr r12, addr_a
 add r7,r12,r8,lsl#2            @     point move to r7    counter*4+basic address
 add r8,r8,#1                    @ counter +1  
 str r5,[r7]                     @  [r5] store in r7address
