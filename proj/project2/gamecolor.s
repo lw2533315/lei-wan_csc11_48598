@@ -238,9 +238,7 @@ ldr r3,addr_store1
 
 ldr  r3,[r3]
 
-ldr r0,ad_tests 
-mov r1,r3
-bl printf                           @@@@@@@@@@@@@@@@@@@@@@@@
+
 b end
 
 

@@ -23,7 +23,7 @@ store3:.word 0
 .balign 4
 store4:.word 0       @exit lr value
 .balign 4
-a:.skip 400
+a:.skip 4000
 
 .balign 4
 store5:.word 0
@@ -174,6 +174,10 @@ cmp r11,#0
 ble output                      @jump out no more bet
 pop {r3,lr}
 mov r1,r3
+
+ldr r0, ad_testd
+bl printf
+
 sub r11,r11,#1
 cmp r1,#1
 bne save1
@@ -251,6 +255,7 @@ mov r9,#4
 add r7,r12,r8,lsl#2
 add r8,r8,#1
 str r9,[r7]
+
 save4:
 cmp r1,#5
 bne goto
@@ -280,25 +285,27 @@ bl printf
 
 
 mov  r12,r7
+cmp r11,#0
 output1:                      @present addrss
 cmp r11,r8
 beq end  
 sub r7,r12,r11,lsl#2
-mov  r1,r7
-ldr r1,[r1]
+ldr r6,[r7]
 add r11,r11,#1
 sub r7,r12,r11,lsl#2
-mov r4,r7
-ldr r4,[r4]
+
+ldr r4,[r7]
 add r11,r11,#1
 sub r7,r12,r11,lsl#2
-mov r9,r7
-ldr r9,[r9]
+ldr r9,[r7]
 add r11,r11,#1
 sub r7,r12,r11,lsl#2
-mov r5,r7
+
 ldr r5,[r7]
 add r11,r11,#1                  @str a set of data from memory
+
+
+
 
 bl print
 b output1
