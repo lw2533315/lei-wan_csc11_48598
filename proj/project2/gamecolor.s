@@ -5,7 +5,7 @@ in3:.asciz"You bet on Color %s, and you loose,your banlance is %d now\n\n"
 in4:.asciz"You bet on Color %s, and you win, your balance is %d now\n\n"
 format1:.asciz"%d"
 format2:.asciz"%s"
-
+tests:.asciz"%s\n"
 cmp1:.asciz"r"
 
 
@@ -34,7 +34,12 @@ bl scanf                             @money
 
 ldr r0,addr_cmp1                    @assume r
 ldr r1,addr_store1
+ 
 bl strcmp
+
+
+
+
 bne jump
 cmp r9,#1
 bne run2
@@ -230,7 +235,12 @@ ldr r4,addr_store2
 ldr r4,[r4]                        @win
 mov r5,#1
 ldr r3,addr_store1
+
 ldr  r3,[r3]
+
+ldr r0,ad_tests 
+mov r1,r3
+bl printf                           @@@@@@@@@@@@@@@@@@@@@@@@
 b end
 
 
@@ -240,7 +250,7 @@ bx lr
 
 
 
-
+ad_tests:.word tests
 addr_in1:.word in1
 addr_in2:.word in2
 addr_in3:.word in3

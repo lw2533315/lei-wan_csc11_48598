@@ -1,6 +1,6 @@
 .data
-testd:.asciz"%d\n"
-tests:.asciz"%d\n"
+test:.asciz"%d \n"
+test1:.asciz"%s \n"
 in1: .asciz "type 1 to choose Single Number\n"
 in2:.asciz"type 2 to choose Column\n"
 in3:.asciz"type 3 to choose Single Row\n"
@@ -11,7 +11,6 @@ in7:.asciz"\nDo you wanna try again? (y/n)\n"
 in8:.asciz"\nYour account balance is: %d\n"
 in9:.asciz"\n Welcome to Roullette Game\n"
 in10:.asciz"type 7 to exit\n"
-in11:.asciz"The ball stopped on %d\n"
 format:.asciz"%d"
 format1:.asciz"%s"
 .balign 4
@@ -273,7 +272,7 @@ b goto
 
 output:
 
-ldr r0,addr_in11
+ldr r0,addr_format
 mov r1,r9
 bl printf
                        @
@@ -292,8 +291,8 @@ mov r4,r7
 ldr r4,[r4]
 add r11,r11,#1
 sub r7,r12,r11,lsl#2
-mov r9,r7
-ldr r9,[r9]
+mov r3,r7
+ldr r3,[r3]
 add r11,r11,#1
 sub r7,r12,r11,lsl#2
 mov r5,r7
@@ -333,8 +332,8 @@ bx lr
 
 
 
-ad_testd:.word testd
-ad_tests:.word tests
+ad_test:.word test
+ad_test1:.word test1
 addr_in1:.word in1
 addr_in2:.word in2
 addr_in3:.word in3
@@ -345,7 +344,6 @@ addr_in7:.word in7
 addr_in8:.word in8
 addr_in9:.word in9
 addr_in10:.word in10
-addr_in11:.word in11
 addr_store1:.word store1
 addr_store2:.word store2
 addr_store3:.word store3
