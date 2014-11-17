@@ -27,10 +27,7 @@ ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                        @bet money on store2
 
-cmp r9,#37
-moveq r9,#0
-cmp r9,#38
-moveq r9,#0
+
 
 ldr r3,addr_store1      @bet what number store r3
 ldr r3,[r3]

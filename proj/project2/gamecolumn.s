@@ -182,7 +182,7 @@ b end
 
 
 end:
-mov r8,r12
+
 pop {lr}
 bx lr
 
