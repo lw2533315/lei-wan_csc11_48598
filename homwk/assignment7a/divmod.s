@@ -1,5 +1,6 @@
-.text
+
 .data
+.text
 .global scaleright
 scaleRight:
 	push {lr}
@@ -33,8 +34,8 @@ scaleleft:
 	mov r2,r2,ASR #1
 	pop {lr}
     bx lr
-.global divmod
-divMod:
+.global div
+div:
 	push {lr}
 	mov r0,#0
 	mov r3,#1
