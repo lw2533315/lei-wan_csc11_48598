@@ -44,19 +44,19 @@ ldr r9,=0x666 @12bit  >>12bit
 mul r3,r4,r3    @12 bit bp -21
 mul r3,r5,r3    @20 bit bp-21
 mul r3,r5,r3    @28 bit bp-21
-asr r3,#12      @16 bit bp-9
+asr r3,#12      @16 bit bp-9     idynp
 mul r6,r7,r6    @28 bit bp-20
 mul r6,r7,r6    @32 bit bp-20
 asr r6,#12       @20 bit bp-8
 mul r6,r8,r6     @32 bit bp-20
-asr r6,#16       @16 bit bp-8
-mul r10,r3,r6     @32 bit bp-17
+asr r6,#16       @16 bit bp-8    iarea
+mul r10,r3,r6     @32 bit bp-17  
 asr r10, #12      @20 bit bp-5
-mul r10,r9,r10     @32 bit bp-17
+mul r10,r9,r10     @32 bit bp-17 idrag
 
 asr r3,#9
 asr r6,#3
-asr r9,#12
+asr r10,#12
 
 ldr r0,ad_m1
 mov r1,r3
@@ -68,7 +68,7 @@ mov r1,r6
 bl printf
 
 ldr r0,ad_m3
-mov r1,r12
+mov r1,r10
 bl printf
 
 
@@ -88,4 +88,4 @@ ad_m4:.word m4
 ad_m5:.word m5
 ad_foramt:.word format
 ad_store:.word store
-ad_stote:.word store1
+ad_store1:.word store1
