@@ -13,7 +13,7 @@ store1:.word 0
 main:
 push {lr}
 
-ldr r3,=0x8e38f    //5/9 shift left 20 bit's value
+
 ldr r0,ad_m1
 bl printf
 
@@ -38,7 +38,9 @@ ldr r4, ad_store1
 ldr r4,[r4]
 
 sub r5,r4,#32
-mul r5,r3,r4,asr#20
+ldr r3,=0x8e38f    //5/9 shift left 20 bit's value
+mul r5,r3,r5
+asr r5,#20
 
 sub r6,r6,#1
 b loopshift
