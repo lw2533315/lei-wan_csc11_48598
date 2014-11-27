@@ -5,10 +5,11 @@ m3:.asciz"Floating Drag*32=%f lbs\n"
 m4:.asciz"Enter the v\n"
 m5:.asciz"Enter the radius\n"
 f1:.float 0.5
-f2:.float 0.00237f
+f2:.float 0.00237
 f3:.float 3.1415926
 f4:.float 0.0069444
 f5:.float 0.4
+f6:.float 32.0
 format:.asciz"%f"
 .balign
 store:.word 0
@@ -36,48 +37,51 @@ bl scanf
 
 ldr r1,ad_f1
 vldr s14,[r1]
-vcvt.f64.f32 d4,s14  //d4:fhalf
+vcvt.f64.f32 d4,s14  @d4:fhalf
 
 ldr r1,ad_f2
 vldr s14,[r1]
-vcvt.f64.f32 d5,s14  //d5:frho
+vcvt.f64.f32 d5,s14  @d5:frho
 
 ldr r1,ad_f3
 vldr s14,[r1]
-vcvt.f64.f32 d6,s14   //d6:pi
+vcvt.f64.f32 d6,s14   @d6:pi
 
 ldr r1,ad_f4
 vldr s24,[r1]
-vcvt.f64.f32 d7,s24   //Conv
+vcvt.f64.f32 d7,s24   @Conv
 
 ldr r1,ad_f5
 vldr s24,[r1]
-vcvt.f64.f32 d8,s24   //Cd
+vcvt.f64.f32 d8,s24   @Cd
 
 
 ldr r1,ad_store
 vldr s24,[r1]
-vcvt.f64.f32 d9,s24   //vel
+vcvt.f64.f32 d9,s24   @vel
 
 
 ldr r1,ad_store1
 vldr s24,[r1]
-vcvt.f64.f32 d10,s24 //radius
+vcvt.f64.f32 d10,s24 @radius
 
 vmul.f64 d4,d5,d4 
 vmul.f64 d4,d9,d4
-vmul.f64 d4,d9,d4    //dynp
+vmul.f64 d4,d9,d4    @dynp
 
 vmul.f64 d6,d10,d6
 vmul.f64 d6,d10,d6
-vmul.f64 d6,d7,d6  //area
+vmul.f64 d6,d7,d6  @area
 
 
 vmul.f64 d11,d6,d4
-vmul.f64 d11,d8,d11//drag
+vmul.f64 d11,d8,d11@drag
 
-lsl d6,#5
-lsl d11,#32
+ldr r1,ad_f6
+vldr s24,[r1]
+vcvt.f64.f32 d5,s24
+vmul.f64  d6,d5,d6
+vmul.f64  d11,d5,d11
 
 
 ldr r0,ad_m1
@@ -90,7 +94,7 @@ vmov r2,r3,d6
 bl printf
 
 ldr r0,ad_m3
-mov r2,r3,d11
+vmov r2,r3,d11
 bl printf
 
 
@@ -113,6 +117,7 @@ ad_f2:.word f2
 ad_f3:.word f3
 ad_f4:.word f4
 ad_f5:.word f5
+ad_f6:.word f6
 ad_foramt:.word format
 ad_store:.word store
 ad_store1:.word store1
