@@ -11,15 +11,15 @@ f4:.float 0.0069444
 f5:.float 0.4
 f6:.float 32.0
 format:.asciz"%f"
-.balign
+.balign 4
 store:.word 0
-.balign
+.balign 4
 store1:.word 0
 
 .text
 .global main
 main:
-push {lr}
+push {R4,lr}
 
 ldr r0,ad_m4
 bl printf
@@ -98,7 +98,7 @@ vmov r2,r3,d11
 bl printf
 
 
-pop {lr}
+pop {R4,lr}
 bx lr
 
 
