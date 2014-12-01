@@ -11,15 +11,15 @@ f4:.float 0.0069444
 f5:.float 0.4
 f6:.float 32.0
 format:.asciz"%f"
-.balign 4
+
 store:.word 0
-.balign 4
+
 store1:.word 0
 
 .text
 .global main
 main:
-push {R4,lr}
+push {4,lr}
 
 ldr r0,ad_m4
 bl printf
@@ -36,6 +36,19 @@ ldr r1,ad_store1
 bl scanf
 
 ldr r1,ad_f1
+vldr s9,[r1]
+
+ldr r1,ad_store1
+vldr s10,[r1]
+
+vmul.f32 s9,s10,s9
+vcvt.f64.f32 d7,s9
+
+ldr r0,ad_m1
+vmov  r2,r3, d7
+bl printf
+
+/*ldr r1,ad_f1
 vldr s14,[r1]
 vcvt.f64.f32 d4,s14  @d4:fhalf
 
@@ -96,9 +109,9 @@ bl printf
 ldr r0,ad_m3
 vmov r2,r3,d11
 bl printf
+*/
 
-
-pop {R4,lr}
+pop {r4,lr}
 bx lr
 
 
