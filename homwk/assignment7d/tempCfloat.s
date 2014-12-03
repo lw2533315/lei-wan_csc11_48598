@@ -3,13 +3,13 @@
 m1:.asciz"the temperature F  is %d \n"
 m2:.asciz"The C-temperatrue is %d \n"
 format:.asciz"%d"
-f1:.float 212
-f2:.float 32
-f3:.float 1
-f4:.float 5
+f1:.float 32.0
+f2:.float 212.0
+f3:.float 5.0
+f4:.float 9.0
 
-
-first:.skip 400
+.balign 4
+first:.skip 200
 .text
 
 .global main
@@ -18,20 +18,23 @@ push {r4,lr}
 
 ldr r9,ad_first
 mov r10,#0
-ldr r5,=212
-ldr r6,=32
+ldr r5,=f2
+vldr s5,[r5]
+
+ldr r6,=f1
+vldr s6,[r6]
+
 
 loop:
 
-str r6, [r9,r10,lsl#2]
-ldr r7,[r9,r10,lsl#2]
-ldr r0,ad_m1
+vstr s6, [r9,r10,lsl#2]
 
-ldr r1,=f3
-add r10,r10,r1
-ldr r1,=f4
-add r6,r6,r4
-cmp r6,r5
+add r10,r10,#1
+ldr r7,=f3
+vldr s7,[r7]
+vadd s6,s6,s7
+
+cmp s6,s5
 ble loop
 
 
@@ -43,14 +46,14 @@ ldr r9,=first
 
 
 ldr r1,[r9,r11,lsl#2]
-ldr r0,=m1		@out in array
+vldr s14,[r1]		@out in array
+vcvt.f64.f32 d5,s14
 bl printf
 
 ldr r1, [r9, r11, lsl#2]
 add r11, r11, #1
-ldr r3,=f2     @r3=32
-ldr r2,=0x8e38f
-sub  r1,r1,r3
+/*ldr r2,=0x8e38f
+sub  r1,r1,#32
 mul r1,r2,r1
 mov r1,r1,asr#20
 
@@ -66,7 +69,7 @@ bl printf
 
 cmp r10,r11
 bne loop1
-
+*/
 pop {r4,lr}
 bx lr
 
