@@ -1,3 +1,4 @@
+
 .data
 
 m1:.asciz"the temperature F  is %d \n"
@@ -9,7 +10,7 @@ f3:.float 5.0
 f4:.float 9.0
 
 .balign 4
-first:.skip 200
+first:.skip 400
 .text
 
 .global main
@@ -32,9 +33,9 @@ vstr s6, [r9,r10,lsl#2]
 add r10,r10,#1
 ldr r7,=f3
 vldr s7,[r7]
-vadd s6,s6,s7
+vadd.f32 s6,s6,s7
 
-cmp s6,s5
+cmp r10,#37
 ble loop
 
 
@@ -52,7 +53,7 @@ bl printf
 
 ldr r1, [r9, r11, lsl#2]
 add r11, r11, #1
-/*ldr r2,=0x8e38f
+ldr r2,=0x8e38f
 sub  r1,r1,#32
 mul r1,r2,r1
 mov r1,r1,asr#20
@@ -68,8 +69,8 @@ bl printf
 
 
 cmp r10,r11
-bne loop1
-*/
+blt loop1
+
 pop {r4,lr}
 bx lr
 
