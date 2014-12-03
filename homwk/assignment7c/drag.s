@@ -1,136 +1,106 @@
+
 .data
-m1:.asciz"Floating Dynamic Pressure=%f lbs\n"
-m2:.asciz"Cross Sectional Area*32 =%f fit^2\n"
-m3:.asciz"Floating Drag*32=%f lbs\n"
-m4:.asciz"Enter the v\n"
-m5:.asciz"Enter the radius\n"
-f1:.float 0.5
-f2:.float 0.00237
-f3:.float 3.1415926
-f4:.float 0.0069444
-f5:.float 0.4
-f6:.float 32.0
-format:.asciz"%f"
-
-store:.word 0
-
-store1:.word 0
+m1:.asciz"enter the velocity \n"
+m2:.asciz"enter the radius\n"
+half: .float 0.5
+threetwo: .float 32
+rho: .float 0.00237	/* slug/ft^3 */
+vel: .word 0		/* velocity */
+rad: .word 0	/* radius */
+pi: .float 3.1415926
+conv: .float 0.006944444
+cd: .float 0.4
+scan: .asciz "%f"
+outdynp: .asciz "Floating Dynamic Pressure = %f (lbs)\n";
+outarea: .asciz "Cross Section Area x32 = %f (ft^2)\n"
+outdrag: .asciz "Floating Drag x 32 = %f (lbs)\n"
 
 .text
-.global main
+	.global main
 main:
-push {4,lr}
+	push {r4, lr}
+        ldr r0,ad_m1
+        bl printf
 
-ldr r0,ad_m4
+	ldr r0, ad_scan
+	ldr r1, ad_vel
+	bl scanf
+        
+        ldr r0,ad_m2
 bl printf
+	ldr r0, ad_scan
+	ldr r1, ad_rad
+	bl scanf
 
-ldr r0,ad_foramt
-ldr r1,ad_store
-bl scanf
+	/* dynamic pressure */
+	ldr r1, ad_vel	
+	vldr s5, [r1]		@s1 =v
+	ldr r1, ad_half
+	vldr s6, [r1]		@s2=0.5
+	ldr r1, ad_rho
+	vldr s4, [r1]
 
-ldr r0,ad_m5
-bl printf
+	vmul.f32 s5, s4, s5	@s5=0.5 rho
+	vmul.f32 s4, s5, s6	@s4=0.5 rho * v
+	vmul.f32 s4, s4, s5	@s4=0.5 rho * v^2 (dynamic pressure)
 
-ldr r0, ad_foramt
-ldr r1,ad_store1
-bl scanf
+	/* area */
+	ldr r1, ad_pi
+	vldr s7, [r1]		@s7=pi
+	ldr r1, ad_rad
+	vldr s8, [r1]		@s8=rad
+	ldr r1, ad_conv
+	vldr s9, [r1]		@s9=conv
 
-ldr r1,ad_f1
-vldr s9,[r1]
+	vmul.f32 s6, s7, s8	@s6=pi*rad
+	vmul.f32 s6, s6, s8	@s6=pi*rad^2
+	vmul.f32 s6, s6, s9	@s6=pi*rad^2*conv
 
-ldr r1,ad_store1
-vldr s10,[r1]
+	/* Drag */
+	ldr r1, ad_cd
+	vldr s3, [r1]		@s3=Cd
 
-vmul.f32 s9,s10,s9
-vcvt.f64.f32 d7,s9
+	vmul.f32 s8, s4, s6	@s2=dynp*area
+	vmul.f32 s8, s8, s3	@s2=dynp*area*Cd
 
-ldr r0,ad_m1
-vmov  r2,r3, d7
-bl printf
+	/* x32 */
+	ldr r1, ad_threetwo
+	vldr s5, [r1]		@s5=32
+	vmul.f32 s8, s8, s5	@dragx32
+	vmul.f32 s6, s6, s5	@areax32
 
-/*ldr r1,ad_f1
-vldr s14,[r1]
-vcvt.f64.f32 d4,s14  @d4:fhalf
+	vcvt.f64.f32 d15, s8
+	vcvt.f64.f32 d14, s6
+	vcvt.f64.f32 d13, s4
+output:
+	ldr r0, ad_outdynp
+	vmov r2, r3, d13
+	bl printf
 
-ldr r1,ad_f2
-vldr s14,[r1]
-vcvt.f64.f32 d5,s14  @d5:frho
+	ldr r0, ad_outarea
+	vmov r2, r3, d14
+	bl printf
 
-ldr r1,ad_f3
-vldr s14,[r1]
-vcvt.f64.f32 d6,s14   @d6:pi
+	ldr r0, ad_outdrag
+	vmov r2, r3, d15
+	bl printf
 
-ldr r1,ad_f4
-vldr s24,[r1]
-vcvt.f64.f32 d7,s24   @Conv
-
-ldr r1,ad_f5
-vldr s24,[r1]
-vcvt.f64.f32 d8,s24   @Cd
-
-
-ldr r1,ad_store
-vldr s24,[r1]
-vcvt.f64.f32 d9,s24   @vel
-
-
-ldr r1,ad_store1
-vldr s24,[r1]
-vcvt.f64.f32 d10,s24 @radius
-
-vmul.f64 d4,d5,d4 
-vmul.f64 d4,d9,d4
-vmul.f64 d4,d9,d4    @dynp
-
-vmul.f64 d6,d10,d6
-vmul.f64 d6,d10,d6
-vmul.f64 d6,d7,d6  @area
-
-
-vmul.f64 d11,d6,d4
-vmul.f64 d11,d8,d11@drag
-
-ldr r1,ad_f6
-vldr s24,[r1]
-vcvt.f64.f32 d5,s24
-vmul.f64  d6,d5,d6
-vmul.f64  d11,d5,d11
-
-
-ldr r0,ad_m1
-vmov r2,r3,d4
-bl printf
-
-
-ldr r0,ad_m2
-vmov r2,r3,d6
-bl printf
-
-ldr r0,ad_m3
-vmov r2,r3,d11
-bl printf
-*/
-
-pop {r4,lr}
-bx lr
-
-
-
-.global printf
-.global scanf
-
-
+end:
+	pop {r4, lr}
+	bx lr
 ad_m1:.word m1
 ad_m2:.word m2
-ad_m3:.word m3
-ad_m4:.word m4
-ad_m5:.word m5
-ad_f1:.word f1
-ad_f2:.word f2
-ad_f3:.word f3
-ad_f4:.word f4
-ad_f5:.word f5
-ad_f6:.word f6
-ad_foramt:.word format
-ad_store:.word store
-ad_store1:.word store1
+ad_half: .word half
+ad_threetwo: .word threetwo
+ad_rho: .word rho
+ad_vel: .word vel
+ad_rad: .word rad
+ad_pi: .word pi
+ad_conv: .word conv
+ad_cd: .word cd
+ad_scan: .word scan
+ad_outdynp: .word outdynp
+ad_outarea: .word outarea
+ad_outdrag: .word outdrag
+Status API Training Shop Blog About
+© 2014 GitHub, Inc. Terms Privacy Security Contact
