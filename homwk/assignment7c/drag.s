@@ -1,13 +1,13 @@
 
 .data
-m1:.asciz"enter the velocity \n"
-m2:.asciz"enter the radius\n"
+@m1:.asciz"enter the velocity \n"
+@m2:.asciz"enter the radius\n"
 half: .float 0.5
 threetwo: .float 32
-rho: .float 0.00237	/* slug/ft^3 */
-vel: .word 0		/* velocity */
-rad: .word 0	/* radius */
-pi: .float 3.1415926
+rho: .float 0.00237	
+vel: .word 0		
+rad: .word 0	
+pi:.float 3.1415926
 conv: .float 0.006944444
 cd: .float 0.4
 scan: .asciz "%f"
@@ -19,15 +19,15 @@ outdrag: .asciz "Floating Drag x 32 = %f (lbs)\n"
 	.global main
 main:
 	push {r4, lr}
-        ldr r0,ad_m1
-        bl printf
+       @ ldr r0,ad_m1
+       @ bl printf
 
 	ldr r0, ad_scan
 	ldr r1, ad_vel
 	bl scanf
         
-        ldr r0,ad_m2
-bl printf
+       @ ldr r0,ad_m2
+       @bl printf
 	ldr r0, ad_scan
 	ldr r1, ad_rad
 	bl scanf
@@ -88,8 +88,8 @@ output:
 end:
 	pop {r4, lr}
 	bx lr
-ad_m1:.word m1
-ad_m2:.word m2
+@ad_m1:.word m1
+@ad_m2:.word m2
 ad_half: .word half
 ad_threetwo: .word threetwo
 ad_rho: .word rho
@@ -102,5 +102,4 @@ ad_scan: .word scan
 ad_outdynp: .word outdynp
 ad_outarea: .word outarea
 ad_outdrag: .word outdrag
-Status API Training Shop Blog About
-© 2014 GitHub, Inc. Terms Privacy Security Contact
+
