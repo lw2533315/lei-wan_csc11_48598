@@ -1,11 +1,12 @@
 .data
 
-
+m1:.asciz"the number is %d \n"
 m2:.asciz"The C-temperatrue is %d \n"
 format:.asciz"%d"
 .balign 4
 store:.word 0
-first:.skip 148
+.balign 4
+first:.skip 200
 .text
 
 .global main
@@ -17,19 +18,25 @@ mov r10,#0
 mov r5,#212
 mov r6,#32
 
-loop
+loop:
 str r6, [r9,r10,lsl#2]
+ldr r7,[r9,r10,lsl#2]
+ldr r0,ad_m1
+mov r1,r7
+bl printf
 add r10,r10,#1
 add r6,r6,#5
 cmp r6,r5
 ble loop
 
 
-loop2:
-sub r10,r10,#1
-ldr r9,ad_first
-ldr r1,[r9,r10,lsr#2]
+mid:
 
+mov r11,#0
+loop1:
+ldr r9,ad_first
+ldr r1,[r9,r11,lsr#2]
+add r11,r11,#1
 
 
 mov r6,#5
@@ -47,9 +54,9 @@ ldr r0,ad_m2
 mov r1,r4
 bl printf
 
-mov r11,#0
+
 cmp r10,r11
-bgt loop2
+bne loop1
 
 pop {r4,lr}
 bx lr
@@ -60,6 +67,6 @@ ad_m1:.word m1
 ad_m2:.word m2
 ad_format:.word format
 ad_store:.word store
-
+ad_first:.word first
 .global printf
 .global scanf 
