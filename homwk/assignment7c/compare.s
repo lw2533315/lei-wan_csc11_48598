@@ -5,10 +5,10 @@ intC: .asciz "%dC\n"
 fC: .asciz"%fC\n"
 sec: .asciz "time=%d\n"
 F: .float 200.0
-threetwo: .float 32
-nine: .float 9
-five: .float 5
-fF: .asciz"%fF\n"
+threetwo: .float 32.0
+nine: .float 9.0
+five: .float 5.0
+fF: .asciz"%f\n"
 
 .text
 	.global main
