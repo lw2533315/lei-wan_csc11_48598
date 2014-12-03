@@ -37,24 +37,23 @@ ldr r9,=first
 
 
 ldr r1,[r9,r11,lsl#2]
-add r11,r11,#1
-ldr r0,=m1
+ldr r0,=m1		@out in array
 bl printf
 
-
-mov r6,#5
+ldr r1, [r9, r11, lsl#2]
+add r11, r11, #1
+ldr r2,=0x8e38f
 sub  r1,r1,#32
-mul r1,r6,r1
+mul r1,r2,r1
+mov r1,r1,asr#20
 
-mov r2,#9
 
-bl div
 
-mov r4,r0
-mov r5,r1
+
+
 
 ldr r0,ad_m2
-mov r1,r4
+mov r1,r1
 bl printf
 
 
