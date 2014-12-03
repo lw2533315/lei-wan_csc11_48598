@@ -28,7 +28,7 @@ vldr s6,[r6]
 
 loop:
 
-vstr s6, [r9,r10,lsl#2]
+vstr s6, [r9,r10,lsl#3]
 
 add r10,r10,#1
 ldr r7,=f3
@@ -46,12 +46,12 @@ loop1:
 ldr r9,=first
 
 
-ldr r1,[r9,r11,lsl#2]
+ldr r1,[r9,r11,lsl#3]
 vldr s14,[r1]		@out in array
 vcvt.f64.f32 d5,s14
 bl printf
 
-ldr r1, [r9, r11, lsl#2]
+ldr r1, [r9, r11, lsl#3]
 add r11, r11, #1
 ldr r2,=0x8e38f
 sub  r1,r1,#32
