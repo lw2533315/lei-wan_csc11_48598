@@ -4,7 +4,7 @@ intF:.asciz "%dF\n"
 intC: .asciz "%dC\n"
 fC: .asciz"%fC\n"
 sec: .asciz "time=%d\n"
-F: .float 212
+F: .float 200.0
 threetwo: .float 32
 nine: .float 9
 five: .float 5
@@ -15,14 +15,14 @@ fF: .asciz"%fF\n"
 main:
 	push {r4, lr}
 	ldr r0, addr_intF
-	mov r1, #212
+	mov r1, #200
 	bl printf
 
 	mov r0, #0
 	bl time
 	mov r4, r0	
 	mov r7, #0	
-	ldr r8, =1000000
+	ldr r8, =2000000
 	mov r9, #0
 	ldr r10, =20
 
@@ -61,7 +61,7 @@ shifting:
 	mov r9, #0
 
 shiftloop:
-	mov r1, #212
+	mov r1, #200
 	sub r1, r1, #32
 	ldr r6, =0x8e38f
 	mul r1, r6, r1
@@ -88,7 +88,7 @@ floating:
 	bl time
 	mov r4, r0			@r4=start
 	mov r7, #0			@inner loop counter
-	ldr r8, =1000000
+	ldr r8, =2000000
 	mov r9, #0			@outer loop counter
 	ldr r10, =20
 
