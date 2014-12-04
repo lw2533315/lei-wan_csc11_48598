@@ -12,7 +12,7 @@ cmp1:.asciz"y"
 .text
 .global main
 main:
-
+push {r4,lr}
 continue:
 ldr r0,=m1
 bl printf
@@ -50,7 +50,7 @@ ldr r0,=cmp1                @continue or not
 ldr r1,=store
 bl strcmp
 beq continue
-
+bne end
 end:
 pop {r4,lr}
 bx lr
