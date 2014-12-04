@@ -20,8 +20,7 @@ mov r6,#32
 loop:
 
 str r6, [r9,r10,lsl#2]
-ldr r7,[r9,r10,lsl#2]
-ldr r0,ad_m1
+
 
 add r10,r10,#1
 add r6,r6,#5
