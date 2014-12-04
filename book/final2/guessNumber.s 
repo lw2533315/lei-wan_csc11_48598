@@ -32,9 +32,9 @@ ldr r0, =m2
 mov r1,r6
 bl printf
 
-ldr r0,=format   @test
+/*ldr r0,=format   @test
 mov r1,r5
-bl printf
+bl printf*/
 ldr r0,=format
 ldr r1,=save
 bl scanf 
