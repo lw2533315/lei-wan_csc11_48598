@@ -1,6 +1,6 @@
 .data
 
-m1: .asciz"type 1 to choose Guess Number\ntype 2 to choose present with interest\ntype 3 to choose  find root\ntype 4 to choose program4\ntype 5 to exit\n"
+m1: .asciz"type 1 to choose Guess Number\ntype 2 to choose present with interest\ntype 3 to choose  find root\ntype 4 to choose equation\ntype 5 to exit\n"
 
 m2: .asciz"which one do you choose?\n"
 m3:.asciz"do you wanna continue?(y/n)\n"
@@ -29,16 +29,21 @@ ldr r4,[r1]
 
 cmp r4,#1
 bleq guess
-
+beq try
 cmp r4,#2
 bleq fv
+beq try
 cmp r4,#3
 bleq root
-
+beq try
 cmp r4,#4
-
+bleq equation
+beq try
 cmp r4,#5
+beq end
+b continue
 
+try:
 ldr r0,=m3
 bl printf
 
