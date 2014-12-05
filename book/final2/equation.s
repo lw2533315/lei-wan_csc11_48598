@@ -26,12 +26,12 @@ ldr r1,[r1]              @r1 is value of x
 mul r2,r5,r1       @ 28bit  >>20   ax
 mov r2,r2,asr#4    @ 24bit  >>16   ax
 mul r2,r1,r2       @ 32bit   >>16  ax^2
-mov r2,r2,asr#4    @28bit   >>12
+mov r2,r2,asr#1    @31bit   >>15
 
 mul r3,r1,r6       @32bit   >>24   bx
-mov r3,r3,asr#12       @20      >>12
+mov r3,r3,asr#9       @23      >>15
 add r2,r2,r3       
-mov r1,r2,asr#12
+mov r1,r2,asr#15
 
 ldr r0,=m2
 bl printf
