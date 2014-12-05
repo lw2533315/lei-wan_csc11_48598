@@ -18,8 +18,8 @@ formatf:.asciz"%f"
 .balign 4
 a:.skip  100
 .text
-.global main
-main:
+.global fv
+fv:
 
 push {r4,lr}
 ldr r0,=m1

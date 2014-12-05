@@ -1,6 +1,6 @@
 .data
 
-m1: .asciz"type 1 to choose Guess Number\ntype 2 to choose problem 2\ntype 3 to choose  problem 3\ntype 4 to choose program4\ntype 5 to exit\n"
+m1: .asciz"type 1 to choose Guess Number\ntype 2 to choose present with interest\ntype 3 to choose  find root\ntype 4 to choose program4\ntype 5 to exit\n"
 
 m2: .asciz"which one do you choose?\n"
 m3:.asciz"do you wanna continue?(y/n)\n"
@@ -31,9 +31,9 @@ cmp r4,#1
 bleq guess
 
 cmp r4,#2
-
+bleq fv
 cmp r4,#3
-
+bleq root
 
 cmp r4,#4
 
