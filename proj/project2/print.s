@@ -1,7 +1,6 @@
 .data
 
-testd:.asciz"%d\n"
-tests:.asciz"%s\n"
+
 in1:.asciz"You win the single number. "
 in2:.asciz"You loose the single number."
 in11:.asciz"You win on Colume. "
@@ -20,7 +19,7 @@ in7:.asciz"You bet on Red, "
 in9:.asciz"You bet on Black, "
 in8:.asciz"You bet on Odd, "
 in10:.asciz"You bet on Even, "
-@t:.asciz"the number is  %d \n\n"
+
 .text
 
 .global print
@@ -226,8 +225,6 @@ addr_in5:.word in5
 addr_in6:.word in6
 addr_in7:.word in7
 addr_in8:.word in8
-ad_testd:.word testd
-ad_tests:.word tests
 addr_in9:.word in9
 addr_in11:.word in11
 addr_in12:.word in12

@@ -4,7 +4,7 @@ in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on %d, and you win, you banlance is %d\n\n"
 in4:.asciz"You bet on %d, and you loose, you banlance is %d now\n\n"
 format:.asciz"%d"
-t:.asciz"the number is  %d\n"
+
 .balign 4
 store1: .word 0
 .balign 4
