@@ -1,20 +1,19 @@
 .data
-testd:.asciz"%d\n"
-tests:.asciz"%s\n"
+f:.float 100.0
 in1: .asciz "type 1 to choose Single Number\ntype 2 to choose Column\ntype 3 to choose Single Row\ntype 4 to choose Red/Black\ntype 5 to choose Even/Odd\ntype 7 to choose Exit\n"
-
-t:.asciz"the number is %d\n"
+in2:.asciz"You winning percentage is  %f% \n"
 in7:.asciz"\nDo you wanna try again? (y/n)\n"
 in8:.asciz"\nYour account balance is: %d\n"
 in9:.asciz"\n Welcome to Roullette Game\n"
-
 in11:.asciz"The ball stopped on %d\n"
 format:.asciz"%d"
 format1:.asciz"%s"
 .balign 4
 store1:.word 0
 .balign 4
-store2:.word 0
+win:.word 0
+.balign 4
+total:.word 0
 .balign 4
 store3:.word 0
 .balign 4
@@ -33,7 +32,14 @@ cmp1:.asciz"y"
 main:
 push {r11,lr}
 mov r10, #100        @acount balance initiate $100
+ldr r0,=win
+mov r1,#0
+str r1,[r0]
+ldr r0,=total
+str r1,[r0]        @initialize =win and =total
 more:
+ 
+
 ldr r0,addr_in9
 bl printf
 
@@ -62,12 +68,9 @@ ldr r11,[r11]
 cmp r11,#7
 beq final
 
-
-
 cmp r11,#1
 bne jump1
 bleq  gamesinglenum
-
 
 jump1:
 cmp r11,#2
@@ -94,57 +97,46 @@ goto:
 
 ldr r12,addr_a
 str r5,[r12,r8,lsl#2]
-add r8,r8,#1                 
-str r3,[r12,r8,lsl#2]
-/*ldr r0,=t
-mov r1,r3
-bl printf */ 
+add r8,r8,#1
+str r3,[r12,r8,lsl#2] 
 add r8,r8,#1
 str r4,[r12,r8,lsl#2]
-                    
 add r8,r8,#1
 str r6,[r12,r8,lsl#2]
 add r8,r8,#1
-/*ldr r0,=t
-mov r1,r6
-bl printf */     
-
 output:
 ldr r1,=store4
 ldr r1,[r1]
 ldr r0,addr_in11          @output the random number
 bl printf
-
 mov r8,#0    @outprint from array index
 ldr r12,=a
-output1:                      @present addrss
-
-
+output1:
 ldr r5,[r12,r8,lsl#2]
+ldr r0,=total        @value in =total  ++1
+ldr r1,[r0]
+add r1,r1,#1
+str r1,[r0]
+
+ldr r0,=win
+ldr r1,[r0]               @r5==1 =win++
+cmp r5,#1
+addeq r1,r1,#1
+str r1,[r0]
 add r8,r8,#1
-
-
 ldr r7, [r12,r8,lsl#2]           @bet number
 add r8,r8,#1
-
 ldr r4,[r12,r8,lsl#2] 
 add r8,r8,#1
 ldr r6,[r12,r8,lsl#2]
 add r8,r8,#1
-
-
-
-
-
 bl print    @call print
 end:
 ldr r0,addr_in7
 bl printf
-
 ldr r0,addr_format1
 ldr r1,addr_store3
 bl scanf
-
 ldr r0, addr_cmp
 ldr r1,addr_store3
 bl strcmp
@@ -152,28 +144,36 @@ beq final
 bne more
 
 final:
+ldr r0,=total                      @realize float
+ldr r5,[r0]
+
+vmov s4,r5
+vcvt.f32.s32 s6,s4
+ldr r0,=win
+ldr r6,[r0]
+vmov s10,r6
+vcvt.f32.s32 s14,s10
+vdiv.f32 s14,s14,s6
+ldr r1,=f
+vldr s20,[r1]
+vmul.f32 s14,s20,s14
+vcvt.f64.f32 d5,s14
+ldr r0,=in2
+vmov r2,r3,d5
+bl printf
+
+
 pop {r11,lr}
 bx lr
 
 
 
-
-
-
-
-
-
-
-
-ad_testd:.word testd
-ad_tests:.word tests
 addr_in1:.word in1
 addr_in7:.word in7
 addr_in8:.word in8
 addr_in9:.word in9
 addr_in11:.word in11
 addr_store1:.word store1
-addr_store2:.word store2
 addr_store3:.word store3
 addr_store4:.word store4
 addr_format:.word format

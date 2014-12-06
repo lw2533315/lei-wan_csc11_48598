@@ -45,7 +45,7 @@ bne jump2
 beq out1
 
 jump2:
-mov r5,#3                         @judgement signal
+mov r5,#3                         @judgement sign
 ldr r0,addr_cmp1
 ldr r1,addr_store1
 bl strcmp
@@ -61,10 +61,10 @@ b compare
 compare:
 
 mov r6,#3
-and r9,r9,#1
-cmp r9,#0
-moveq r6,#2
-movne r6,#1
+and r9,r9,#1                @and             
+cmp r9,#0     
+moveq r6,#2               @r6==2  r9 is even
+movne r6,#1              @r6==1   r9 is oven
 cmp r5,r6
 beq out2
 bne out1
