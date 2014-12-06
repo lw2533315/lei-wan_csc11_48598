@@ -15,7 +15,7 @@ format:.asciz"%d"
 .text
 .global gamesingler
 gamesingler:
-push {lr}
+push {r11,lr}
 
 ldr r0,addr_in1
 bl printf
@@ -162,8 +162,8 @@ b end
 
 
 end:
-
-pop {lr}
+mov r6,#3   @the third game
+pop {r11,lr}
 bx lr
 
 

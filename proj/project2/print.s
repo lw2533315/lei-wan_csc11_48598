@@ -20,6 +20,7 @@ in7:.asciz"You bet on Red, "
 in9:.asciz"You bet on Black, "
 in8:.asciz"You bet on Odd, "
 in10:.asciz"You bet on Even, "
+@t:.asciz"the number is  %d \n\n"
 .text
 
 .global print
@@ -27,25 +28,24 @@ print:
 push {lr}
 
 
-
-
-
-
-cmp r6,#1
+cmp r6,#1                    @r6 which game
 bne game2
-cmp r5,#0
+cmp r5,#0              @r5 win/lose   0 is loose  1 is win
 beq lose1
+
+
 ldr r0,addr_in1
 bl printf
-ldr r0,addr_in3
-mov r1,r9
-bl printf
 
-mov r2,#35
-mul r4,r2,r4
-add r10,r10,r4
+
+ldr r0,=in3
+mov r1,r7
+bl printf
+mov r2,#35            @rate of bet
+mul r4,r2,r4          @35time   r4 is how much to bet
+add r10,r10,r4         @balance change         
 ldr r0, addr_in4
-mov r1,r10
+mov r1,r10 
 bl printf
 b end
 
@@ -53,7 +53,7 @@ lose1:
 ldr r0,addr_in2
 bl printf
 ldr r0, addr_in3
-mov r1,r9
+mov r1,r7
 bl printf
 
 sub r10,r10,r4
@@ -63,14 +63,14 @@ bl printf
 b end
 
 game2:     @Column
-cmp r6,#2
+cmp r6,#2  
 bne game3
 cmp r5,#0
 beq lose2
 ldr r0,addr_in11
 bl printf
 ldr r0,addr_in5
-mov r1,r9
+mov r1,r7
 bl printf
 
 mov r2,#1
@@ -85,7 +85,7 @@ lose2:
 ldr r0,addr_in12
 bl printf
 ldr r0, addr_in5
-mov r1,r9
+mov r1,r7
 bl printf
 
 sub r10,r10,r4
@@ -107,7 +107,7 @@ beq lose3
 ldr r0,addr_in13
 bl printf
 ldr r0,addr_in6
-mov r1,r9
+mov r1,r7
 bl printf
 
 mov r2,#5            @5 times rate
@@ -122,7 +122,7 @@ lose3:
 ldr r0,addr_in14
 bl printf
 ldr r0, addr_in6
-mov r1,r9
+mov r1,r7
 bl printf
 
 sub r10,r10,r4
@@ -140,7 +140,7 @@ cmp r5,#0
 beq lose4
 ldr r0,addr_in15
 bl printf
-cmp r9,#114                     @type string store in to the array memory transform into number AscII 114=red
+cmp r7,#114                     @type string store in to the array memory transform into number AscII 114=red
 ldr r0,addr_in7
 bleq printf
 ldr r0,addr_in9
@@ -158,7 +158,7 @@ lose4:
 ldr r0,addr_in16
 bl printf
 
-cmp r9,#114
+cmp r7,#114
 ldr r0, addr_in7
 bleq  printf
 ldr r0,addr_in9
@@ -182,7 +182,7 @@ cmp r5,#0
 beq lose5
 ldr r0,addr_in17
 bl printf
-cmp r9,#111
+cmp r7,#111
 ldr r0,addr_in8
 bleq printf
 ldr r0,addr_in10
@@ -200,7 +200,7 @@ b end
 lose5:
 ldr r0,addr_in18
 bl printf
-cmp r9,#111
+cmp r7,#111
 ldr r0, addr_in8
 bleq printf
 ldr r0,addr_in10

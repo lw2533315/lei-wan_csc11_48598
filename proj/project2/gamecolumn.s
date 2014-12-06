@@ -14,7 +14,7 @@ save:.word 0
 .text
 .global gamecolumn
 gamecolumn:
-push {lr}
+push {r11,lr}
 ldr r0,addr_in1
 bl printf
 
@@ -182,8 +182,8 @@ b end
 
 
 end:
-
-pop {lr}
+mov r6,#2       @the second game
+pop {r11,lr}
 bx lr
 
 

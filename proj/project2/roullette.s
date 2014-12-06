@@ -1,9 +1,9 @@
 .data
 testd:.asciz"%d\n"
-tests:.asciz"%d\n"
+tests:.asciz"%s\n"
 in1: .asciz "type 1 to choose Single Number\ntype 2 to choose Column\ntype 3 to choose Single Row\ntype 4 to choose Red/Black\ntype 5 to choose Even/Odd\ntype 7 to choose Exit\n"
 
-
+t:.asciz"the number is %d\n"
 in7:.asciz"\nDo you wanna try again? (y/n)\n"
 in8:.asciz"\nYour account balance is: %d\n"
 in9:.asciz"\n Welcome to Roullette Game\n"
@@ -31,7 +31,7 @@ cmp1:.asciz"y"
 
 .global main
 main:
-push {lr}
+push {r11,lr}
 mov r10, #100        @acount balance initiate $100
 more:
 ldr r0,addr_in9
@@ -43,10 +43,12 @@ bl printf
 
 bl random
 
-ldr  r9,addr_store4
+ldr  r9,addr_store4     @save the random number
 str r1,[r9]
+mov r9,r1
 
-ldr r0, addr_in1
+
+ldr r0, addr_in1        @ask to input choice
 bl printf
 
 
@@ -54,7 +56,7 @@ ldr r0,addr_format
 ldr r1,addr_store1      @number of your choice
 bl scanf
 
-ldr r11,addr_store1
+ldr r11,addr_store1     @choice save in r11
 ldr r11,[r11]
 
 cmp r11,#7
@@ -84,68 +86,57 @@ bleq gamecolor
 
 jump4:
 cmp r11,#5
-
 bleq gameoe
 
-mov r8,#0
-                   @initialize r8=0 to counter the address
-
-
+mov r8,#0        @index to array
 
 goto:
-ldr r9,addr_store4
-ldr r9,[r9]
-
 
 ldr r12,addr_a
-add r7,r12,r8,lsl#2           @     point move to r7    counter*4+basic address
-add r8,r8,#1                    @ counter +1  
-str r5,[r7]                  @  [r5] store in r7address
-add r7,r12,r8,lsl#2             @  point move 4*r8 to new r7
-add r8,r8,#1                   @counter +1
-str r3,[r7]                   @ [r3] store in r7 new address
-add r7,r12,r8,lsl#2
+str r5,[r12,r8,lsl#2]
+add r8,r8,#1                 
+str r3,[r12,r8,lsl#2]
+/*ldr r0,=t
+mov r1,r3
+bl printf */ 
 add r8,r8,#1
-str r4,[r7]
-mov r9,#1                     @sigal 1. singlenum
-add r7,r12,r8,lsl#2
+str r4,[r12,r8,lsl#2]
+                    
 add r8,r8,#1
-str r9,[r7]
-
+str r6,[r12,r8,lsl#2]
+add r8,r8,#1
+/*ldr r0,=t
+mov r1,r6
+bl printf */     
 
 output:
-
-ldr r0,addr_in11
-mov r1,r9
+ldr r1,=store4
+ldr r1,[r1]
+ldr r0,addr_in11          @output the random number
 bl printf
-                       @
 
-mov r11,#0
-mov  r12,r7
-
+mov r8,#0    @outprint from array index
+ldr r12,=a
 output1:                      @present addrss
-sub r7,r12,r11,lsl#2
-ldr r6,[r7]
-add r11,r11,#1
-sub r7,r12,r11,lsl#2
 
-ldr r4,[r7]
-add r11,r11,#1
-sub r7,r12,r11,lsl#2
-ldr r9,[r7]
-add r11,r11,#1
-sub r7,r12,r11,lsl#2
 
-ldr r5,[r7]
-add r11,r11,#1                  @str a set of data from memory
+ldr r5,[r12,r8,lsl#2]
+add r8,r8,#1
 
+
+ldr r7, [r12,r8,lsl#2]           @bet number
+add r8,r8,#1
+
+ldr r4,[r12,r8,lsl#2] 
+add r8,r8,#1
+ldr r6,[r12,r8,lsl#2]
+add r8,r8,#1
 
 
 
-bl print
 
 
-
+bl print    @call print
 end:
 ldr r0,addr_in7
 bl printf
@@ -161,7 +152,7 @@ beq final
 bne more
 
 final:
-pop {lr}
+pop {r11,lr}
 bx lr
 
 
