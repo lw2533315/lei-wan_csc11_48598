@@ -4,6 +4,7 @@ in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on %d, and you win, you banlance is %d\n\n"
 in4:.asciz"You bet on %d, and you loose, you banlance is %d now\n\n"
 format:.asciz"%d"
+m1:.asciz"r3 is %d\n"
 
 .balign 4
 store1: .word 0
@@ -27,6 +28,10 @@ bl printf
 ldr r0,addr_format
 ldr r1,addr_store2
 bl scanf                        @bet money on store2
+
+ldr r1,=store1
+ldr r3,[r1]
+
 
 cmp r9,r3
 moveq r5,#1             @win r5 is 1 loose r5 is 0
