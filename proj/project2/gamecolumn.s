@@ -31,11 +31,11 @@ ldr r1,addr_store2           @money
 bl scanf
 
 cmp r9,#37
-moveq r9,#0
+moveq r9,#0             @random ==37 or 38  r9=0
 cmp r9,#38
 moveq r9,#0
 
-@mov r12,r8
+
 mov r2,#0
 mov r6,#0
 mov r7,#0
@@ -154,7 +154,7 @@ beq end
 
 
 run1:
-cmp r3,#1
+cmp r3,#1         
 bne run2
 cmp r2,#1
 movne r5,#0
