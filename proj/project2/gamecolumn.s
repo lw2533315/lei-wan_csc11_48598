@@ -3,7 +3,7 @@ in1: .asciz"which Column do you bet?1-3\n"
 in2:.asciz"How much do you bet?\n"
 in3:.asciz"You bet on Column %d, and you loose ,you banlance is  %d now\n\n"
 in4:.asciz"You bet on Column %d, and you win, you banlance is %d  now\n\n"
-
+m1:.asciz"r3 is %d\n"
 format:.asciz"%d"
 .balign 4
 store1:.word 0
@@ -35,7 +35,7 @@ moveq r9,#0
 cmp r9,#38
 moveq r9,#0
 
-mov r12,r8
+@mov r12,r8
 mov r2,#0
 mov r6,#0
 mov r7,#0
@@ -173,9 +173,10 @@ moveq r5,#1
 b end
 
 run3:
+
 cmp r3,#3
 cmp r7,#1
-movne r5,#1
+movne r5,#0
 bne end
 moveq r5,#1
 b end
